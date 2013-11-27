@@ -9,11 +9,15 @@
   "dependencies": {
     "mocha": "*",
     "expect.js": "*",
+    "nlogger": "*",
+    "node-uuid": "*",
     "sinon": "*",
     "supervisor": "*",
     "superagent": "*",
     "passport": "*",
     "passport-local": "*",
+    "underscore": "*",
+    "helios": "*",
     "express": "3.2.6",
     "jade": "*"
   }
