@@ -1,6 +1,6 @@
 var request = require('superagent');
 var expect = require('expect.js');
-var User = require('../lib/User');
+
 
 describe('Home Page', function () {
   it('should exist', function (done) {
@@ -14,14 +14,5 @@ describe('Home Page', function () {
   });
 });
 
-describe('User', function(){
-  describe('#save()', function(){
-    it('should save without error', function(done){
-      var user = new User('test_username', 'test_password', 'test.email@700level.com');
-      user.save(function(err){
-        if (err) throw err;
-        done();
-      });
-    })
-  })
-})
+
+
