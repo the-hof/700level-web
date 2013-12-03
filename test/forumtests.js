@@ -22,11 +22,11 @@ describe('Forum', function () {
       var forumService = new ForumService();
       var forum = 'Parking Lot';
       var thread = 'Auto test thread';
-      var post = 'test post';
+      var post = 'should never see this';
       var ip = '127.0.0.1';
 
       forumService.savePost(uuid.v4(), uuid.v4(), forum, thread, post, ip, function (err) {
-        if (err && (err != 'username and blah blah blah')) throw err;
+        if (err && (err != 'username and password not authorized to post')) throw err;
         done();
       })
     });
