@@ -19,6 +19,7 @@
     "underscore": "*",
     "helios": "*",
     "express": "3.2.6",
+    "moment": "*",
     "jade": "*"
   }
 }

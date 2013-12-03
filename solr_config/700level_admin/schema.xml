@@ -111,6 +111,7 @@
    <field name="hashed_password" type="string" indexed="true" stored="true" required="false" />
    <field name="salt" type="string" indexed="true" stored="true" required="false" />
    <field name="email_address" type="string" indexed="true" stored="true" required="false" />
+   <field name="role" type="string" indexed="true" stored="true" required="false" />
    <field name="admin_datatype" type="string" indexed="true" stored="true" required="true" />
    
    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" /> 
