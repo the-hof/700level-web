@@ -11,10 +11,36 @@ describe('Forum', function () {
   });
   */
 
+  describe('#savePost', function () {
+    it('should save a new post without error', function (done) {
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      var thread = 'Auto test thread';
+      var post = 'test post';
+      var ip = '127.0.0.1';
+
+
+      forumService.savePost('test_username', 'test_password', forum, thread, post, ip, done);
+    });
+
+    it('should not allow saves by invalid username & password combos', function (done) {
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      var thread = 'Auto test thread';
+      var post = 'should never see this';
+      var ip = '127.0.0.1';
+
+      forumService.savePost(uuid.v4(), uuid.v4(), forum, thread, post, ip, function (err) {
+        if (err && (err != 'username and password not authorized to post')) throw err;
+        done();
+      })
+    });
+  })
+
   describe('#listThreadsByForum', function () {
     it('should error when forum name blank', function(done) {
       var forumService = new ForumService();
-      var forum = 'Parking Lot';
+      var forum = 'The Barrel';
       forumService.listThreadsByForum('', function(err, PostList) {
         if (err && (err != 'Forum not specified')) throw err;
         expect(PostList).to.not.be.ok();
@@ -23,7 +49,7 @@ describe('Forum', function () {
     })
     it('should return an array of threads', function(done) {
       var forumService = new ForumService();
-      var forum = 'Parking Lot';
+      var forum = 'The Barrel';
       forumService.listThreadsByForum(forum, function(err, PostList) {
         if (err) throw err;
         expect(PostList).to.be.an('array');
@@ -87,33 +113,39 @@ describe('Forum', function () {
 
   });
 
-  describe('#savePost', function () {
-    it('should save a new post without error', function (done) {
+
+
+  describe('#deleteThread', function () {
+    it('should not allow a random user to delete a thread', function (done) {
       var forumService = new ForumService();
       var forum = 'The Barrel';
       var thread = 'Auto test thread';
-      var post = 'test post';
-      var ip = '127.0.0.1';
 
-
-      forumService.savePost('test_username', 'test_password', forum, thread, post, ip, function (err) {
-        if (err) throw err;
+      forumService.deleteThread(uuid.v4(), uuid.v4(), forum, thread, function (err) {
+        if (err && (err != 'username and password not authorized to delete')) throw err;
         done();
       });
     });
-
-    it('should not allow saves by invalid username & password combos', function (done) {
+    it('should fail gracefully when thread does not exist', function (done) {
       var forumService = new ForumService();
       var forum = 'The Barrel';
       var thread = 'Auto test thread';
-      var post = 'should never see this';
-      var ip = '127.0.0.1';
 
-      forumService.savePost(uuid.v4(), uuid.v4(), forum, thread, post, ip, function (err) {
-        if (err && (err != 'username and password not authorized to post')) throw err;
-        done();
-      })
+      forumService.deleteThread('test_username', 'test_password', forum, uuid.v4(), done);
     });
+    it('should delete a thread without error', function (done) {
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      var thread = 'Auto test thread';
 
+      forumService.deleteThread('test_username', 'test_password', forum, thread, function (err) {
+        if (err) throw err;
+        forumService.listPostsByThread(forum, thread, function(err, PostList) {
+          if (err) throw err;
+          expect(PostList.length).to.equal(0);
+          done();
+        })
+      });
+    });
   })
 })
