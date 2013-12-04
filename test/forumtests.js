@@ -12,6 +12,25 @@ describe('Forum', function () {
   */
 
   describe('#listThreadsByForum', function () {
+    it('should error when forum name blank', function(done) {
+      var forumService = new ForumService();
+      var forum = 'Parking Lot';
+      forumService.listThreadsByForum('', function(err, PostList) {
+        if (err && (err != 'Forum not specified')) throw err;
+        expect(PostList).to.not.be.ok();
+        done();
+      })
+    })
+    it('should return an array of threads', function(done) {
+      var forumService = new ForumService();
+      var forum = 'Parking Lot';
+      forumService.listThreadsByForum(forum, function(err, PostList) {
+        if (err) throw err;
+        expect(PostList).to.be.an('array');
+        expect(PostList).to.not.be.empty();
+        done();
+      })
+    })
 
   });
 
@@ -36,7 +55,7 @@ describe('Forum', function () {
         done();
       })
     })
-    it('should return an array of posts', function (done) {
+    it('should return an array of posts', function(done) {
       var forumService = new ForumService();
       var forum = 'The Barrel';
       var thread='Auto test thread';
@@ -46,7 +65,26 @@ describe('Forum', function () {
         expect(PostList).to.not.be.empty();
         done();
       })
-    });
+    })
+    it('should return a sorted array of posts', function (done) {
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      var thread='Auto test thread';
+      forumService.listPostsByThread(forum, thread, function(err, PostList) {
+        if (err) throw err;
+        expect(PostList).to.be.an('array');
+        expect(PostList).to.not.be.empty();
+        //loop through result set
+        //skipping the first one, so starting at i=1
+        for (var i=1; i<PostList.length; i++){
+          var prior_post_time = PostList[i-1].last_modified;
+          var this_post_time = PostList[i].last_modified;
+          expect(this_post_time).to.be.greaterThan(prior_post_time);
+        }
+        done();
+      })
+    })
+
   });
 
   describe('#savePost', function () {
