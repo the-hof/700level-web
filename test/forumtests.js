@@ -56,7 +56,6 @@ describe('Forum', function () {
       if (err) console.log(err);
       user.getByUsernamePassword('forumtest_user', 'forumtest_userpwd', function(err, SelectedUser){
         if (err) console.log(err);
-        console.log(SelectedUser);
         user.setAdmin(SelectedUser.id, done);
       })
     });
@@ -142,7 +141,6 @@ describe('Forum', function () {
             case 'thread topic 0':
               expect(PostList[i].count).to.equal(4);
           }
-          //console.log(PostList[i]);
         }
         done();
       })
