@@ -28,6 +28,9 @@ describe('User', function () {
       user.listUsers(function(err, UserList) {
         if (err) throw err;
         expect(UserList.length).to.be.greaterThan(0);
+        for(var i=0; i<UserList.length; i++) {
+          expect(UserList[i].username).to.be.ok();
+        }
         done();
       })
     })

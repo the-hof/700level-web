@@ -12,16 +12,18 @@ describe('Forum', function () {
    });
    */
 
-  function addTenRecs(err) {
-    if (err) throw err;
-    var forumService = new ForumService();
-    var forum = 'The Barrel';
-    var thread = '';
-    var post = '';
-    var ip = '127.0.0.1';
 
-    for (var i = 0; i < 10; i++) {
-      switch (i % 3) {
+
+  function addRecords(err, recordsToAdd, callback) {
+    if (err) throw err;
+    if (recordsToAdd > 0) {
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      var thread = '';
+      var post = '';
+      var ip = '127.0.0.1';
+
+      switch (recordsToAdd % 5) {
         case 0:
           thread = 'thread topic 0';
           post = 'text sample 1';
@@ -44,52 +46,61 @@ describe('Forum', function () {
           break;
       }
 
-      forumService.savePost('forumtest_user', 'forumtest_userpwd', forum, thread, post, ip, function(err) {
+      forumService.savePost('forumtest_user', 'forumtest_userpwd', forum, thread, post, ip, function (err) {
         if (err) console.log(err);
+        addRecords(err, recordsToAdd-1, callback);
       });
     }
+    else {
+      return callback(err);
+    }
   }
-
   before(function (done) {
     var user = new UserService();
-    user.createNew('forumtest_user', 'forumtest_userpwd', 'test.email@700level.com', function(err) {
+    user.createNew('forumtest_user', 'forumtest_userpwd', 'test.email@700level.com', function (err) {
       if (err) console.log(err);
-      user.getByUsernamePassword('forumtest_user', 'forumtest_userpwd', function(err, SelectedUser){
+      user.getByUsernamePassword('forumtest_user', 'forumtest_userpwd', function (err, SelectedUser) {
         if (err) console.log(err);
-        user.setAdmin(SelectedUser.id, done);
+        user.setAdmin(SelectedUser.id, function (err) {
+          if (err) console.log(err);
+            addRecords(err, 51, done);
+        });
       })
     });
   })
 
   after(function () {
-    var user = new UserService();
-    var forumService = new ForumService();
-    var forum = 'The Barrel';
-    var thread = 'thread topic 0';
+    var shouldCleanUp = true;
+    if (shouldCleanUp) {
+      var user = new UserService();
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      var thread = 'thread topic 0';
 
-    forumService.deleteThread('forumtest_user', 'forumtest_userpwd', forum, thread, function (err) {
-      if (err) throw err;
-      thread = 'thread topic 1';
       forumService.deleteThread('forumtest_user', 'forumtest_userpwd', forum, thread, function (err) {
         if (err) throw err;
-        thread = 'thread topic 2';
+        thread = 'thread topic 1';
         forumService.deleteThread('forumtest_user', 'forumtest_userpwd', forum, thread, function (err) {
           if (err) throw err;
-          thread = 'thread topic 3';
+          thread = 'thread topic 2';
           forumService.deleteThread('forumtest_user', 'forumtest_userpwd', forum, thread, function (err) {
             if (err) throw err;
-            thread = 'thread topic 4';
+            thread = 'thread topic 3';
             forumService.deleteThread('forumtest_user', 'forumtest_userpwd', forum, thread, function (err) {
               if (err) throw err;
-              console.log('deleting forum user');
-              user.deleteUserName('forumtest_user', function(err) {
-                if (err) console.log(err);
+              thread = 'thread topic 4';
+              forumService.deleteThread('forumtest_user', 'forumtest_userpwd', forum, thread, function (err) {
+                if (err) throw err;
+                console.log('deleting forum user');
+                user.deleteUserName('forumtest_user', function (err) {
+                  if (err) console.log(err);
+                })
               })
             })
           })
         })
       })
-    })
+    }
   })
 
 
@@ -132,14 +143,23 @@ describe('Forum', function () {
     it('should return an array of threads', function (done) {
       var forumService = new ForumService();
       var forum = 'The Barrel';
-      forumService.listThreadsByForum(forum, function (err, PostList) {
+      forumService.listThreadsByForum(forum, function (err, ThreadList) {
         if (err) throw err;
-        expect(PostList).to.be.an('array');
-        expect(PostList).to.not.be.empty();
-        for (var i = 0; i < PostList.length; i++) {
-          switch (PostList[i].name) {
+        expect(ThreadList).to.be.an('array');
+        expect(ThreadList).to.not.be.empty();
+        expect(ThreadList.length).to.be.greaterThan(1);
+        for (var i = 0; i < ThreadList.length; i++) {
+          switch (ThreadList[i].name) {
             case 'thread topic 0':
-              expect(PostList[i].count).to.equal(4);
+              expect(ThreadList[i].count).to.equal(10); break;
+            case 'thread topic 1':
+              expect(ThreadList[i].count).to.equal(11); break;
+            case 'thread topic 2':
+              expect(ThreadList[i].count).to.equal(10); break;
+            case 'thread topic 3':
+              expect(ThreadList[i].count).to.equal(10); break;
+            case 'thread topic 4':
+              expect(ThreadList[i].count).to.equal(10); break;
           }
         }
         done();
@@ -197,9 +217,28 @@ describe('Forum', function () {
         done();
       })
     })
-
   });
 
+  describe('#listPostsByForum', function () {
+    it('should fail gracefully when forum does not exist', function (done) {
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      forumService.listPostsByForum('', 5, function (err, PostList) {
+        if ((err) && (err.message !== 'Forum not specified')) throw err;
+        expect(PostList.length).to.equal(0);
+        done();
+      });
+    });
+    it('should return an array of posts', function (done) {
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      forumService.listPostsByForum(forum, 5, function (err, PostList) {
+        if (err) throw err;
+        expect(PostList.length).to.equal(5);
+        done();
+      });
+    });
+  })
 
   describe('#deleteThread', function () {
     it('should not allow a random user to delete a thread', function (done) {
