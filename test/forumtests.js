@@ -145,7 +145,6 @@ describe('Forum', function () {
         done();
       })
     })
-
   });
 
   describe('#listPostsByThread', function () {

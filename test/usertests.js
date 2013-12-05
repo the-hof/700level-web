@@ -22,6 +22,17 @@ describe('User', function () {
     })
   });
 
+  describe('#listUsers', function () {
+    it('should list users without error', function(done) {
+      var user = new UserService();
+      user.listUsers(function(err, UserList) {
+        if (err) throw err;
+        expect(UserList.length).to.be.greaterThan(0);
+        done();
+      })
+    })
+  })
+
   describe('getByUsernamePassword', function () {
     it('should find the user just saved', function (done) {
       var user = new UserService();
