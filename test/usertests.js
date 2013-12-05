@@ -15,7 +15,7 @@ describe('User', function () {
     })
   });
 
-  describe('#save()', function () {
+  describe('#createNew()', function () {
     it('should save without error', function (done) {
       var user = new UserService();
       user.createNew('test_username', 'test_password', 'test.email@700level.com', done);
@@ -27,6 +27,7 @@ describe('User', function () {
       var user = new UserService();
       user.getByUsernamePassword('test_username', 'test_password', function (err, SelectedUser) {
         if (err) throw err;
+        if (!SelectedUser.isValid) {console.log(SelectedUser)};
         expect(SelectedUser.isValid).to.equal(true);
         expect(SelectedUser.isAdmin).to.equal(false);
         done();
