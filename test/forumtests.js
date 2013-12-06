@@ -13,7 +13,6 @@ describe('Forum', function () {
    */
 
 
-
   function addRecords(err, recordsToAdd, callback) {
     if (err) throw err;
     if (recordsToAdd > 0) {
@@ -48,28 +47,37 @@ describe('Forum', function () {
 
       forumService.savePost('forumtest_user', 'forumtest_userpwd', forum, thread, post, ip, function (err) {
         if (err) console.log(err);
-        addRecords(err, recordsToAdd-1, callback);
+        addRecords(err, recordsToAdd - 1, callback);
       });
     }
     else {
       return callback(err);
     }
   }
+
   before(function (done) {
     var user = new UserService();
-    user.createNew('forumtest_user', 'forumtest_userpwd', 'test.email@700level.com', function (err) {
-      if (err) console.log(err);
-      user.getByUsernamePassword('forumtest_user', 'forumtest_userpwd', function (err, SelectedUser) {
-        if (err) console.log(err);
-        user.setAdmin(SelectedUser.id, function (err) {
-          if (err) console.log(err);
-            addRecords(err, 51, done);
-        });
-      })
-    });
-  })
+    var forumService = new ForumService();
+    var forum = 'The Barrel';
+    var thread = 'thread topic 0';
 
-  after(function () {
+
+    user.deleteUserName('forumtest_user', function (err) {
+      if (err) console.log(err);
+      user.createNew('forumtest_user', 'forumtest_userpwd', 'test.email@700level.com', function (err) {
+        if (err) console.log(err);
+        user.getByUsernamePassword('forumtest_user', 'forumtest_userpwd', function (err, SelectedUser) {
+          if (err) console.log(err);
+          user.setAdmin(SelectedUser.id, function (err) {
+            if (err) console.log(err);
+            addRecords(err, 51, done);
+          });
+        });
+      });
+    });
+  });
+
+  after(function (done) {
     var shouldCleanUp = true;
     if (shouldCleanUp) {
       var user = new UserService();
@@ -94,6 +102,7 @@ describe('Forum', function () {
                 console.log('deleting forum user');
                 user.deleteUserName('forumtest_user', function (err) {
                   if (err) console.log(err);
+                  done();
                 })
               })
             })
@@ -151,15 +160,20 @@ describe('Forum', function () {
         for (var i = 0; i < ThreadList.length; i++) {
           switch (ThreadList[i].name) {
             case 'thread topic 0':
-              expect(ThreadList[i].count).to.equal(10); break;
+              expect(ThreadList[i].count).to.equal(10);
+              break;
             case 'thread topic 1':
-              expect(ThreadList[i].count).to.equal(11); break;
+              expect(ThreadList[i].count).to.equal(11);
+              break;
             case 'thread topic 2':
-              expect(ThreadList[i].count).to.equal(10); break;
+              expect(ThreadList[i].count).to.equal(10);
+              break;
             case 'thread topic 3':
-              expect(ThreadList[i].count).to.equal(10); break;
+              expect(ThreadList[i].count).to.equal(10);
+              break;
             case 'thread topic 4':
-              expect(ThreadList[i].count).to.equal(10); break;
+              expect(ThreadList[i].count).to.equal(10);
+              break;
           }
         }
         done();
