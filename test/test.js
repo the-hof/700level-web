@@ -14,5 +14,3 @@ describe('Home Page', function () {
   });
 });
 
-
-
