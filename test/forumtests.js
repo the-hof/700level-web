@@ -143,7 +143,7 @@ describe('Forum', function () {
     it('should error when forum name blank', function (done) {
       var forumService = new ForumService();
       var forum = 'The Barrel';
-      forumService.listThreadsByForum('', function (err, PostList) {
+      forumService.listThreadsByForum('', 1, 25, function (err, PostList) {
         if (err && (err != 'Forum not specified')) throw err;
         expect(PostList).to.not.be.ok();
         done();
@@ -152,7 +152,7 @@ describe('Forum', function () {
     it('should return an array of threads', function (done) {
       var forumService = new ForumService();
       var forum = 'The Barrel';
-      forumService.listThreadsByForum(forum, function (err, ThreadList) {
+      forumService.listThreadsByForum(forum, 1, 25, function (err, ThreadList) {
         if (err) throw err;
         expect(ThreadList).to.be.an('array');
         expect(ThreadList).to.not.be.empty();
