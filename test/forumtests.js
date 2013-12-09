@@ -186,7 +186,7 @@ describe('Forum', function () {
       var forumService = new ForumService();
       var forum = 'The Barrel';
       var thread = 'Auto test thread';
-      forumService.listPostsByThread('', thread, function (err, PostList) {
+      forumService.listPostsByThread('', thread, 1, 25, function (err, PostList) {
         if (err && (err != 'Forum or thread not specified')) throw err;
         expect(PostList).to.not.be.ok();
         done();
@@ -196,7 +196,7 @@ describe('Forum', function () {
       var forumService = new ForumService();
       var forum = 'The Barrel';
       var thread = 'Auto test thread';
-      forumService.listPostsByThread(forum, '', function (err, PostList) {
+      forumService.listPostsByThread(forum, '', 1, 25, function (err, PostList) {
         if (err && (err != 'Forum or thread not specified')) throw err;
         expect(PostList).to.not.be.ok();
         done();
@@ -206,7 +206,7 @@ describe('Forum', function () {
       var forumService = new ForumService();
       var forum = 'The Barrel';
       var thread = 'Auto test thread';
-      forumService.listPostsByThread(forum, thread, function (err, PostList) {
+      forumService.listPostsByThread(forum, thread, 1, 25, function (err, PostList) {
         if (err) throw err;
         expect(PostList).to.be.an('array');
         expect(PostList).to.not.be.empty();
@@ -217,7 +217,7 @@ describe('Forum', function () {
       var forumService = new ForumService();
       var forum = 'The Barrel';
       var thread = 'Auto test thread';
-      forumService.listPostsByThread(forum, thread, function (err, PostList) {
+      forumService.listPostsByThread(forum, thread, 1, 25, function (err, PostList) {
         if (err) throw err;
         expect(PostList).to.be.an('array');
         expect(PostList).to.not.be.empty();
@@ -233,11 +233,11 @@ describe('Forum', function () {
     })
   });
 
-  describe('#listPostsByForum', function () {
+  describe('#listMostRecentPostsByForum', function () {
     it('should fail gracefully when forum does not exist', function (done) {
       var forumService = new ForumService();
       var forum = 'The Barrel';
-      forumService.listPostsByForum('', 5, function (err, PostList) {
+      forumService.listMostRecentPostsByForum('', 5, function (err, PostList) {
         if ((err) && (err.message !== 'Forum not specified')) throw err;
         expect(PostList.length).to.equal(0);
         done();
@@ -246,7 +246,7 @@ describe('Forum', function () {
     it('should return an array of posts', function (done) {
       var forumService = new ForumService();
       var forum = 'The Barrel';
-      forumService.listPostsByForum(forum, 5, function (err, PostList) {
+      forumService.listMostRecentPostsByForum(forum, 5, function (err, PostList) {
         if (err) throw err;
         expect(PostList.length).to.equal(5);
         done();
@@ -279,7 +279,7 @@ describe('Forum', function () {
 
       forumService.deleteThread('forumtest_user', 'forumtest_userpwd', forum, thread, function (err) {
         if (err) throw err;
-        forumService.listPostsByThread(forum, thread, function (err, PostList) {
+        forumService.listPostsByThread(forum, thread, 1, 25, function (err, PostList) {
           if (err) throw err;
           expect(PostList.length).to.equal(0);
           done();

@@ -4,6 +4,13 @@ var ForumService = require('../lib/ForumService');
  * GET most recent
  */
 
+function getIntFromQueryString(url_int) {
+  var retInt = null;
+  if (url_int) retInt = parseInt(url_int);
+
+  return retInt;
+}
+
 function getSolrForumFromQueryString(url_forum) {
   var solr_forum = 'Nose Bleeds';
   if (url_forum) {
@@ -19,6 +26,11 @@ function getSolrForumFromQueryString(url_forum) {
   return solr_forum;
 }
 
+function getSolrThreadFromQueryString(url_thread) {
+  if (url_thread) return url_thread;
+  return '';
+}
+
 exports.listThreadsByForum = function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   var forumService = new ForumService();
@@ -27,15 +39,28 @@ exports.listThreadsByForum = function(req, res) {
     if (err) throw err;
     res.end(JSON.stringify(threadList, null, 2));
   })
-}
+};
 
 exports.mostRecent = function(req, res){
   res.setHeader('Content-Type', 'application/json');
   var forumService = new ForumService();
   var forum = getSolrForumFromQueryString(req.query.forum);
-  forumService.listPostsByForum(forum, 5, function (err, postList) {
+  forumService.listMostRecentPostsByForum(forum, 5, function (err, postList) {
     if (err) throw err;
     res.end(JSON.stringify(postList, null, 2));
-  });
+  })
+};
 
+exports.listPostsByThread = function(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  var forumService = new ForumService();
+  var forum = getSolrForumFromQueryString(req.query.forum);
+  var thread = getSolrThreadFromQueryString(req.query.thread);
+  var startPage = getIntFromQueryString(req.query.startPage);
+  var pageSize = getIntFromQueryString(req.query.pageSize);
+
+  forumService.listPostsByThread(forum, thread, startPage, pageSize, function (err, threadList) {
+    if (err) throw err;
+    res.end(JSON.stringify(threadList, null, 2));
+  })
 };
