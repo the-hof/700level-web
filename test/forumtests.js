@@ -44,7 +44,6 @@ describe('Forum', function () {
           post = 'text sample 5';
           break;
       }
-
       forumService.savePost('forumtest_user', 'forumtest_userpwd', forum, thread, post, ip, function (err) {
         if (err) console.log(err);
         addRecords(err, recordsToAdd - 1, callback);
@@ -61,7 +60,6 @@ describe('Forum', function () {
     var forum = 'The Barrel';
     var thread = 'thread topic 0';
 
-
     user.deleteUserName('forumtest_user', function (err) {
       if (err) console.log(err);
       user.createNew('forumtest_user', 'forumtest_userpwd', 'test.email@700level.com', function (err) {
@@ -70,7 +68,7 @@ describe('Forum', function () {
           if (err) console.log(err);
           user.setAdmin(SelectedUser.id, function (err) {
             if (err) console.log(err);
-            addRecords(err, 51, done);
+            addRecords(err, 11, done);
           });
         });
       });
@@ -160,19 +158,19 @@ describe('Forum', function () {
         for (var i = 0; i < ThreadList.length; i++) {
           switch (ThreadList[i].name) {
             case 'thread topic 0':
-              expect(ThreadList[i].count).to.equal(10);
+              expect(ThreadList[i].count).to.equal(2);
               break;
             case 'thread topic 1':
-              expect(ThreadList[i].count).to.equal(11);
+              expect(ThreadList[i].count).to.equal(3);
               break;
             case 'thread topic 2':
-              expect(ThreadList[i].count).to.equal(10);
+              expect(ThreadList[i].count).to.equal(2);
               break;
             case 'thread topic 3':
-              expect(ThreadList[i].count).to.equal(10);
+              expect(ThreadList[i].count).to.equal(2);
               break;
             case 'thread topic 4':
-              expect(ThreadList[i].count).to.equal(10);
+              expect(ThreadList[i].count).to.equal(2);
               break;
           }
         }

@@ -48,6 +48,17 @@ describe('User', function () {
       })
     });
 
+    it('should not find the user just saved with the wrong password', function (done) {
+      var user = new UserService();
+      user.getByUsernamePassword('test_username', uuid.v4(), function (err, SelectedUser) {
+        if (err) throw err;
+        //if (SelectedUser.isValid) {console.log(SelectedUser)};
+        expect(SelectedUser.isValid).to.equal(false);
+        expect(SelectedUser.isAdmin).to.equal(false);
+        done();
+      })
+    });
+
     it('should not find randomly generated user in database', function (done) {
       var user = new UserService();
       user.getByUsernamePassword(uuid.v4(), uuid.v4(), function (err, User) {

@@ -30,7 +30,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+//app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/v1/forum/most_recent', forum.mostRecent);
 app.get('/v1/forum/thread', forum.listPostsByThread);
