@@ -41,13 +41,21 @@ exports.listThreadsByForum = function(req, res) {
   })
 };
 
+function stringifyPosts(key, value) {
+  switch(key) {
+    case 'ip_address': return undefined; break;
+    case '_version_': return undefined; break;
+    default: return value; break;
+  }
+}
+
 exports.mostRecent = function(req, res){
   res.setHeader('Content-Type', 'application/json');
   var forumService = new ForumService();
   var forum = getSolrForumFromQueryString(req.query.forum);
   forumService.listMostRecentPostsByForum(forum, 5, function (err, postList) {
     if (err) throw err;
-    res.end(JSON.stringify(postList, null, 2));
+    res.end(JSON.stringify(postList, stringifyPosts, 2));
   })
 };
 
@@ -61,6 +69,6 @@ exports.listPostsByThread = function(req, res) {
 
   forumService.listPostsByThread(forum, thread, startPage, pageSize, function (err, threadList) {
     if (err) throw err;
-    res.end(JSON.stringify(threadList, null, 2));
+    res.end(JSON.stringify(threadList, stringifyPosts, 2));
   })
 };

@@ -18,7 +18,8 @@ describe('List Most Recent Posts By Thread API call', function () {
             expect(postList[i].thread).to.be.ok();
             expect(postList[i].post).to.be.ok();
             expect(postList[i].last_modified).to.be.ok();
-            expect(postList[i].ip_address).to.be.ok();
+            expect(postList[i].ip_address).to.not.be.ok();
+            expect(postList[i]._version_).to.not.be.ok();
             if (i > 0) {
               var prior_post_time = postList[i - 1].last_modified;
               var this_post_time = postList[i].last_modified;
@@ -112,7 +113,8 @@ describe('List Most Recent Posts By Forum API call', function () {
             expect(postList[i].thread).to.be.ok();
             expect(postList[i].post).to.be.ok();
             expect(postList[i].last_modified).to.be.ok();
-            expect(postList[i].ip_address).to.be.ok();
+            expect(postList[i].ip_address).to.not.be.ok();
+            expect(postList[i]._version_).to.not.be.ok();
             if (i > 0) {
               var prior_post_time = postList[i - 1].last_modified;
               var this_post_time = postList[i].last_modified;
@@ -142,7 +144,8 @@ describe('List Most Recent Posts By Forum API call', function () {
             expect(postList[i].thread).to.be.ok();
             expect(postList[i].post).to.be.ok();
             expect(postList[i].last_modified).to.be.ok();
-            expect(postList[i].ip_address).to.be.ok();
+            expect(postList[i].ip_address).to.not.be.ok();
+            expect(postList[i]._version_).to.not.be.ok();
             if (i > 0) {
               var prior_post_time = postList[i - 1].last_modified;
               var this_post_time = postList[i].last_modified;
