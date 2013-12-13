@@ -25,8 +25,9 @@ exports.createNew = function(req, res) {
   var email = getSolrUserNameFromPOST(req.param('email_address'));
   var user = new UserService();
   user.createNew(username, unhashed_password, email, function (err) {
-    if (err) throw err;
-    res.send('OK');
+    var returnCode = 'OK';
+    if (err) returnCode = err.message;
+    res.send(returnCode);
   });
 
 }

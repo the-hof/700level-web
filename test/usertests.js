@@ -69,6 +69,18 @@ describe('User', function () {
     });
   });
 
+  describe('getByUsername', function () {
+    it('should find a user previously saved', function(done) {
+      var user = new UserService();
+      user.getByUsername('test_username', function (err, SelectedUser) {
+        if (err) throw err;
+        expect(SelectedUser.isValid).to.equal(true);
+        expect(SelectedUser.username).to.equal('test_username');
+        done();
+      })
+    })
+  })
+
   describe('getById', function () {
     it('should find a user previously saved', function (done) {
       var user = new UserService();
