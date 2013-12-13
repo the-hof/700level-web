@@ -3,12 +3,14 @@ var expect = require('expect.js');
 
 
 describe('List Most Recent Posts By Thread API call', function () {
-  var testURL = 'localhost:3000/v1/forum/thread?forum=nosebleeds&thread=Eagles+-+Raiders&startPage=2&pageSize=25';
   it('should return 25 posts', function (done) {
+    var testURL = 'localhost:3000/v1/forum/thread?forum=nosebleeds&thread=Eagles+-+Raiders&startPage=2&pageSize=25';
+
     request
       .get(testURL, function (err, res) {
         expect(res).to.exist;
-        expect(res.status).to.equal(200);try {
+        expect(res.status).to.equal(200);
+        try {
           var postList = JSON.parse(res.text);
           expect(postList.length).to.equal(25);
           for (var i = 0; i < postList.length; i++) {

@@ -31,7 +31,8 @@ if ('development' == app.get('env')) {
 }
 
 //app.get('/', routes.index);
-app.get('/users', user.list);
+app.put('/v1/user/', user.createNew);
+app.get('/v1/user/', user.createNew);
 app.get('/v1/forum/most_recent', forum.mostRecent);
 app.get('/v1/forum/thread', forum.listPostsByThread);
 app.get('/v1/forum', forum.listThreadsByForum);
