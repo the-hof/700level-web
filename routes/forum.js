@@ -4,6 +4,24 @@ var ForumService = require('../lib/ForumService');
  * GET most recent
  */
 
+function wrapResponseInCallback(callbackQuerystring, responseText) {
+  return getCallbackOpenFromQueryString(callbackQuerystring)
+    + responseText
+    + getCallbackCloseFromQueryString(callbackQuerystring);
+}
+
+function getCallbackOpenFromQueryString(url_callback) {
+  var retStr = '';
+  if (url_callback) retStr = url_callback + '(';
+  return retStr;
+}
+
+function getCallbackCloseFromQueryString(url_callback) {
+  var retStr = '';
+  if (url_callback) retStr = ')';
+  return retStr;
+}
+
 function getIntFromQueryString(url_int) {
   var retInt = null;
   if (url_int) retInt = parseInt(url_int);
@@ -35,9 +53,12 @@ exports.listThreadsByForum = function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   var forumService = new ForumService();
   var forum = getSolrForumFromQueryString(req.query.forum);
-  forumService.listThreadsByForum(forum, 1, 25, function(err, threadList) {
+  var startPage = getIntFromQueryString(req.query.startPage);
+  var pageSize = getIntFromQueryString(req.query.pageSize);
+
+  forumService.listThreadsByForum(forum, startPage?startPage:1, pageSize?pageSize:25, function(err, threadList) {
     if (err) throw err;
-    res.end(JSON.stringify(threadList, null, 2));
+    res.end(wrapResponseInCallback(req.query.callback, JSON.stringify(threadList, null, 2)));
   })
 };
 

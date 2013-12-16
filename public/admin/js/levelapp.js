@@ -7,7 +7,7 @@ lvlApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/forum', {
-        templateUrl: 'partials/forum-list.html',
+         templateUrl: 'partials/forum-list.html',
         controller: 'forumListCtrl'
       }).
       when('/forum/:forumName', {

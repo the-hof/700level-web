@@ -1,0 +1,21 @@
+<div>
+    <h2>{{forumName}}</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Thread name</th>
+                <th>Replies</th>
+                <th>Last Modified</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="thread in threadList">
+                <td>{{thread.name}}</td>
+                <td>{{thread.count}}</td>
+                <td>{{thread.last_modified}}</td>
+                <td>delete</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -57,7 +57,7 @@ describe('List Most Recent Threads By Forum API call', function () {
         try {
           var postList = JSON.parse(res.text);
           expect(postList.length).to.equal(25);
-          for (var i=0; i<postList.length; i++) {
+          for (var i = 0; i < postList.length; i++) {
             expect(postList[i].name).to.be.ok();
             expect(postList[i].forum).to.equal('Nose Bleeds');
           }
@@ -69,6 +69,17 @@ describe('List Most Recent Threads By Forum API call', function () {
       })
   })
 
+  it('should add a callback when requested', function (done) {
+    request
+      .get('localhost:3000/v1/forum/?callback=TEST_CALLBACK', function (err, res) {
+        expect(res).to.exist;
+        expect(res.status).to.equal(200);
+        expect(res.text).to.contain('TEST_CALLBACK');
+        done();
+
+      })
+  })
+
   it('should return a list of the 25 most recent concourse threads', function (done) {
     request
       .get('localhost:3000/v1/forum/?forum=concourse', function (err, res) {
@@ -77,7 +88,7 @@ describe('List Most Recent Threads By Forum API call', function () {
         try {
           var postList = JSON.parse(res.text);
           expect(postList.length).to.equal(25);
-          for (var i=0; i<postList.length; i++) {
+          for (var i = 0; i < postList.length; i++) {
             expect(postList[i].name).to.be.ok();
             expect(postList[i].forum).to.equal('Concourse');
           }
