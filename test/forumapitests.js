@@ -36,6 +36,17 @@ describe('List Most Recent Posts By Thread API call', function () {
         }
       });
   });
+
+  it('should add a callback when requested', function(done) {
+    request
+      .get('localhost:3000/v1/forum/thread?forum=nosebleeds&thread=Eagles+-+Raiders&startPage=2&pageSize=25&callback=TEST_CALLBACK', function (err, res) {
+        expect(res).to.exist;
+        expect(res.status).to.equal(200);
+        expect(res.text).to.contain('TEST_CALLBACK');
+        done();
+
+      })
+  });
 })
 
 

@@ -1,0 +1,21 @@
+<div>
+    <h2>{{forumName}}</h2>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th width="70%">{{threadName}}</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="post in postList">
+            <td>{{post.post}}</td>
+            <td>{{post.author}}</td>
+            <td>delete</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

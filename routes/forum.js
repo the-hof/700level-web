@@ -90,6 +90,6 @@ exports.listPostsByThread = function(req, res) {
 
   forumService.listPostsByThread(forum, thread, startPage, pageSize, function (err, threadList) {
     if (err) throw err;
-    res.end(JSON.stringify(threadList, stringifyPosts, 2));
+    res.end(wrapResponseInCallback(req.query.callback, JSON.stringify(threadList, stringifyPosts, 2)));
   })
 };

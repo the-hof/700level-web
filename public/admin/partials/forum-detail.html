@@ -11,7 +11,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="thread in threadList">
-                <td>{{thread.name}}</td>
+                <td><a href="#/forum/{{forumCode}}/{{thread.name}}">{{thread.name}}</a></td>
                 <td>{{thread.count}}</td>
                 <td>{{thread.last_modified}}</td>
                 <td>delete</td>

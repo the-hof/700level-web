@@ -14,6 +14,10 @@ lvlApp.config(['$routeProvider',
         templateUrl: 'partials/forum-detail.html',
         controller: 'forumDetailCtrl'
       }).
+      when('/forum/:forumName/:threadName', {
+        templateUrl: 'partials/thread-detail.html',
+        controller: 'threadDetailCtrl'
+      }).
       otherwise({
         redirectTo: '/forum'
       });
