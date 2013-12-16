@@ -111,7 +111,7 @@
    <field name="hashed_password" type="string" indexed="true" stored="true" required="false" />
    <field name="salt" type="string" indexed="true" stored="true" required="false" />
    <field name="email_address" type="string" indexed="true" stored="true" required="false" />
-   <field name="role" type="string" indexed="true" stored="true" required="false" />
+   <field name="role" type="text_tags" indexed="true" stored="true" required="false" />
    <field name="admin_datatype" type="string" indexed="true" stored="true" required="true" />
    
    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" /> 
@@ -295,6 +295,12 @@
    <!-- <copyField source="name" dest="alphaNameSort"/> -->
  
   <types>
+      <fieldType name="text_tags" class="solr.TextField">
+          <analyzer>
+              <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+              <filter class="solr.LowerCaseFilterFactory"/>
+          </analyzer>
+      </fieldType>
     <!-- field type definitions. The "name" attribute is
        just a label to be used by field definitions.  The "class"
        attribute and any other attributes determine the real

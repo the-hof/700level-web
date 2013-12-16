@@ -31,8 +31,10 @@ if ('development' == app.get('env')) {
 }
 
 //app.get('/', routes.index);
+//API routes
 app.put('/v1/user/', user.createNew);
 app.get('/v1/user/', user.createNew);
+app.get('/v1/user/set_first_admin', user.setFirstAdmin);
 app.get('/v1/forum/most_recent', forum.mostRecent);
 app.get('/v1/forum/thread', forum.listPostsByThread);
 app.get('/v1/forum', forum.listThreadsByForum);

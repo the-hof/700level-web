@@ -19,6 +19,26 @@ function getSolrEmailFromPOST(post_email) {
   return '';
 }
 
+exports.setFirstAdmin = function(req, res) {
+  var username = getSolrUserNameFromPOST(req.param('username'));
+  var user = new UserService();
+  user.checkSiteAdmin(function (err, HasAdmin) {
+    if (!HasAdmin) {
+      user.getByUsername(username, function (err, SelectedUser) {
+        if (err) throw err;
+        if (!SelectedUser) res.send("couldn't find username in database");
+        user.setAdmin(SelectedUser.id, function(err) {
+          if (err) throw err;
+          res.send("OK");
+        })
+      })
+    } else {
+      res.send("admin already exists, not adding new one");
+    }
+  })
+  //res.send("not implemented");
+}
+
 exports.createNew = function(req, res) {
   var username = getSolrUserNameFromPOST(req.param('username'));
   var unhashed_password = getSolrUserNameFromPOST(req.param('password'));

@@ -2,6 +2,18 @@ var expect = require('expect.js');
 var UserService = require('../lib/UserService');
 var uuid = require('node-uuid');
 
+after(function (done) {
+  var shouldCleanUp = true;
+  if (shouldCleanUp) {
+    var user = new UserService();
+
+    user.deleteUserName('test_username', function (err) {
+      if (err) console.log(err);
+      done();
+    })
+  }
+})
+
 describe('User', function () {
   describe('#deleteUserName', function () {
     it('should delete without error', function (done) {
@@ -23,12 +35,12 @@ describe('User', function () {
   });
 
   describe('#listUsers', function () {
-    it('should list users without error', function(done) {
+    it('should list users without error', function (done) {
       var user = new UserService();
-      user.listUsers(function(err, UserList) {
+      user.listUsers(function (err, UserList) {
         if (err) throw err;
         expect(UserList.length).to.be.greaterThan(0);
-        for(var i=0; i<UserList.length; i++) {
+        for (var i = 0; i < UserList.length; i++) {
           expect(UserList[i].username).to.be.ok();
         }
         done();
@@ -41,7 +53,10 @@ describe('User', function () {
       var user = new UserService();
       user.getByUsernamePassword('test_username', 'test_password', function (err, SelectedUser) {
         if (err) throw err;
-        if (!SelectedUser.isValid) {console.log(SelectedUser)};
+        if (!SelectedUser.isValid) {
+          console.log(SelectedUser)
+        }
+        ;
         expect(SelectedUser.isValid).to.equal(true);
         expect(SelectedUser.isAdmin).to.equal(false);
         done();
@@ -70,7 +85,7 @@ describe('User', function () {
   });
 
   describe('getByUsername', function () {
-    it('should find a user previously saved', function(done) {
+    it('should find a user previously saved', function (done) {
       var user = new UserService();
       user.getByUsername('test_username', function (err, SelectedUser) {
         if (err) throw err;

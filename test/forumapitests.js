@@ -9,6 +9,7 @@ describe('List Most Recent Posts By Thread API call', function () {
     request
       .get(testURL, function (err, res) {
         expect(res).to.exist;
+        //console.log(res);
         expect(res.status).to.equal(200);
         try {
           var postList = JSON.parse(res.text);
