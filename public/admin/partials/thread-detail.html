@@ -12,7 +12,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="post in postList">
-            <td>{{post.post}}</td>
+            <td ng-bind-html="post.post"></td>
             <td>{{post.author}}</td>
             <td>delete</td>
         </tr>

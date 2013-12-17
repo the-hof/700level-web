@@ -1,4 +1,4 @@
-var lvlControllers = angular.module('lvlControllers', []);
+var lvlControllers = angular.module('lvlControllers', ['ngSanitize']);
 
 lvlControllers.controller('forumListCtrl', ['$scope',
   function ($scope) {
