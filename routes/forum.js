@@ -76,7 +76,7 @@ exports.mostRecent = function(req, res){
   var forum = getSolrForumFromQueryString(req.query.forum);
   forumService.listMostRecentPostsByForum(forum, 5, function (err, postList) {
     if (err) throw err;
-    res.end(JSON.stringify(postList, stringifyPosts, 2));
+    res.end(wrapResponseInCallback(req.query.callback, JSON.stringify(postList, stringifyPosts, 2)));
   })
 };
 

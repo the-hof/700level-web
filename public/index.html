@@ -1,9 +1,190 @@
 <!DOCTYPE html>
-<html>
+<!-- saved from url=(0045)http://www.option8web.com/700level/index.html -->
+<html lang="en" ng-app="levelApp">
 <head>
-    <title>700Level beta</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="http://www.option8web.com/700level/favicon.ico">
+
+    <title>700level.com - Philadelphia Eagles Fan Site</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://www.option8web.com/700level/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="http://www.option8web.com/700level/7Lglobal.css" rel="stylesheet">
+    <link href="http://www.option8web.com/700level/carousel.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]>
+    <script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
 </head>
-<body>
+
+<body style="">
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="./700index_files/700index.html">700level.com</a>
+        </div>
+        <!-- end navbar header -->
+
+        <div class="collapse navbar-collapse">
+
+            <ul class="nav navbar-nav">
+                <li><a href="http://www.option8web.com/700level/about.html">About 700level</a></li>
+                <li><a href="http://www.option8web.com/700level/contact.html">Contact Us</a></li>
+                <li class="dropdown">
+                    <a href="http://www.option8web.com/700level/forums.html" class="dropdown-toggle"
+                       data-toggle="dropdown">Fans' View Message Boards<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://www.option8web.com/700level/nosebleeds.html">Nosebleeds</a></li>
+                        <li><a href="http://www.option8web.com/700level/index.html#">Concourse</a></li>
+                        <li><a href="http://www.option8web.com/700level/index.html#">Tailgate</a></li>
+                        <li><a href="http://www.option8web.com/700level/index.html#">Owner's Box</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"
+                            style="margin:10px 0px 0px 10px;">
+                        LOGIN
+                    </button>
+                </li>
+            </ul>
+
+        </div>
+        <!-- end nav-collapse -->
+
+    </div>
+    <!-- end container -->
+</div>
+<!-- end navbar -->
+
+<div class="container">
+
+    <div ng-view></div>
+
+</div>
+<!-- /.container -->
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">Login to 700level.com</h4>
+            </div>
+            <div class="modal-body">
+
+
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="inputUsername" class="col-sm-2 control-label">Username</label>
+
+                        <div class="col-sm-10">
+                            <input type="username" class="form-control" id="inputEmail3" placeholder="Username">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Remember me
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default">Register</button>
+                            <button type="button" class="btn btn-default">Profile Manager</button>
+                            <button type="button" class="btn btn-default">Retrieve Password</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.modal-body -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">LOGIN</button>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+</div><!-- end container -->
+
+
+<!-- FOOTER -->
+
+<div class="jumbotron-footer">
+    <div class="container">
+        <footer>
+
+            <div class="col-md-12" style="margin:0px 0px 0px 0px;">
+                <a href="./700index_files/700index.html"><img src="images/logo_700level.gif" width="170" height="100"
+                                                              style="margin:0px 0px 20px 0px;"></a>
+
+                <p style="color:#ffffff;">© 2013 www.700level.com<br>
+                    <small>All Rights Reserved<br>In Seth We Trust</small>
+                </p>
+            </div>
+
+        </footer>
+    </div>
+    <!-- end container -->
+</div>
+<!-- end jumbotron-footer -->
+<!-- END FOOTER -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="lib/jquery-1.10.2.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+
+<script src="lib/angular.min.js"></script>
+<script src="lib/angular-route.min.js"></script>
+<script src="http://code.angularjs.org/1.2.5/angular-sanitize.min.js"></script>
+
+<script src="js/levelapp.js?v=000"></script>
+<script src="js/leveldirectives.js?v=000"></script>
+<script src="js/levelcontrollers.js?v=000"></script>
 
 </body>
 </html>

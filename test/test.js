@@ -8,7 +8,7 @@ describe('Home Page', function () {
       .get('localhost:3000', function (error, res) {
         expect(res).to.exist;
         expect(res.status).to.equal(200);
-        expect(res.text).to.contain('700Level');
+        expect(res.text).to.contain('700level.com');
         done();
       });
   });

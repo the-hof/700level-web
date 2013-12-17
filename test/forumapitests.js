@@ -123,6 +123,16 @@ describe('List Most Recent Posts By Forum API call', function () {
       });
   });
 
+  it('should return a callback when requested', function (done) {
+    request
+      .get('localhost:3000/v1/forum/most_recent?callback=TEST_CALLBACK', function (error, res) {
+        expect(res).to.exist;
+        expect(res.status).to.equal(200);
+        expect(res.text).to.contain('TEST_CALLBACK');
+        done();
+      });
+  });
+
   it('should return a list of 5 nosebleeds posts in json by default', function (done) {
     request
       .get('localhost:3000/v1/forum/most_recent', function (err, res) {

@@ -1,0 +1,142 @@
+<!-- Carousel
+   ================================================== -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+        <li data-target="#myCarousel" data-slide-to="2" class="active"></li>
+    </ol>
+
+    <div class="carousel-inner">
+
+        <div class="item">
+            <img src="images/carousel-bkgd01.jpg" alt="First slide">
+            <div class="container">
+                <div class="carousel-caption" style="margin:0px 0px 125px 0px;">
+                    <h1>Real Talk, Real Fans</h1>
+                    <p>Register today to discuss Philadelphia Eagles football with the most knowledgeable and passionate fans of any Team in the National Football League!</p><br>
+                    <p><a class="btn btn-lg btn-primary" href="http://www.option8web.com/700level/register.html" role="button"><strong>JOIN 700LEVEL.COM</strong></a></p>
+                </div><!-- end carousel-caption -->
+            </div><!-- end container -->
+        </div><!-- end item -->
+
+        <div class="item">
+            <img src="images/carousel-bkgd02.jpg" alt="Second slide">
+            <div class="container">
+                <div class="carousel-caption" style="margin:0px 0px 125px 0px;">
+                    <h1>Altitude With Attitude</h1>
+                    <p>Register today to discuss Philadelphia Eagles football with the most knowledgeable and passionate fans of any Team in the National Football League!</p><br>
+                    <p><a class="btn btn-lg btn-primary" href="http://www.option8web.com/700level/register.html" role="button"><strong>JOIN 700LEVEL.COM</strong></a></p>
+                </div><!-- end carousel-caption -->
+            </div><!-- end container -->
+        </div><!-- end item -->
+
+        <div class="item active">
+            <img src="images/carousel-bkgd03.jpg" alt="Third slide">
+            <div class="container">
+                <div class="carousel-caption" style="margin:0px 0px 125px 0px;">
+                    <h1>Fear The Tier</h1>
+                    <p>Register today to discuss Philadelphia Eagles football with the most knowledgeable and passionate fans of any Team in the National Football League!</p><br>
+                    <p><a class="btn btn-lg btn-primary" href="http://www.option8web.com/700level/register.html" role="button"><strong>JOIN 700LEVEL.COM</strong></a></p>
+                </div><!-- end carousel-caption -->
+            </div><!-- end container -->
+        </div><!-- end item -->
+
+    </div><!-- end carousel-inner -->
+
+    <a class="left carousel-control" href="http://www.option8web.com/700level/index.html#myCarousel" data-slide="prev" style="margin-top:-75px;"><span class="glyphicon glyphicon-chevron-left"></span></a>
+    <a class="right carousel-control" href="http://www.option8web.com/700level/index.html#myCarousel" data-slide="next" style="margin-top:-75px;"><span class="glyphicon glyphicon-chevron-right"></span></a>
+
+</div><!-- /.carousel -->
+
+<div class="container">
+
+    <div class="content-container">
+        <div class="row">
+
+            <div class="col-md-4">
+                <img class="img-circle" src="images/logo_icon_01.gif">
+                <h2>Fans' View</h2>
+                <p>The 700level.com message boards have been a part of the Philadelphia Eagles conversation since 1999. Join the greatest community of fans on the planet to talk about the team and the game!</p>
+                <p><a class="btn btn-default" href="http://www.option8web.com/700level/forums.html" role="button">Enter The Boards »</a></p>
+            </div><!-- end col-md-4 -->
+
+            <div class="col-md-4">
+                <img class="img-circle" src="images/logo_icon_01.gif">
+                <h2>700Level Gear</h2>
+                <p>Coming Soon!</p>
+                <p><a class="btn btn-default" href="http://www.option8web.com/700level/index.html#" role="button">Get The Gear »</a></p>
+            </div><!-- end col-md-4 -->
+
+            <div class="col-md-4">
+                <img class="img-circle" src="images/logo_icon_01.gif">
+                <h2>Contact Us</h2>
+                <p>Got a question or comment about this web site? Trying to get in touch with another 700level.com user? This is the best way to get in touch with us.</p>
+                <p><a class="btn btn-default" href="http://www.option8web.com/700level/index.html#" role="button">Drop Us a Line »</a></p>
+            </div><!-- end col-md-4 -->
+
+        </div><!-- end row -->
+    </div><!-- end content-container -->
+
+    <hr>
+
+    <div class="content-container-left">
+
+
+        <h1>Most Recent Posts</h1>
+        <div ng-repeat="post in mostRecentPostList">
+            <h3><small>{{post.forum}}</small>
+                <br>
+                <a href="http://www.option8web.com/700level/index.html#">{{post.thread}}</a></h3>
+            <p ng-bind-html="post.post"></p>
+
+            <hr>
+        </div>
+
+    </div><!-- end content-container-left -->
+
+    <!-- START THE FEATURETTES -->
+
+    <hr>
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">About 700level.com: <span class="text-muted">The inspiration for the web site</span></h2>
+            <p class="lead">Sure we are crazy about pro football and especially the Philadelphia Eagles, but our connection to both is rooted in a place of football legend. A place that evoked fear in the hearts of players and opposing fans alike, the infamous Veterans Stadium | <a href="http://www.option8web.com/700level/about.html"><strong>About 700level.com</strong></a></p>
+        </div>
+        <div class="col-md-5">
+            <a href="http://www.option8web.com/700level/about.html"><img class="featurette-image img-responsive" src="images/spotlight_01.gif" alt="Generic placeholder image"></a>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row featurette">
+        <div class="col-md-5">
+            <a href="http://www.option8web.com/700level/nosebleeds.html"><img class="featurette-image img-responsive" src="images/spotlight_02.gif"></a>
+        </div>
+        <div class="col-md-7">
+            <h2 class="featurette-heading">Nosebleeds: <span class="text-muted">You've Been Warned...</span></h2>
+            <p class="lead">Anything goes here, this forum is aggressive and loud. Football is the focus while the 700level Vets rule the board. Post to this forum and you're fair game! | <a href="http://www.option8web.com/700level/nosebleeds.html"><strong>Join the Conversation</strong></a></p>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row featurette">
+        <div class="col-md-7">
+            <h2 class="featurette-heading">700level.com To Go: <span class="text-muted">Take The 700level Everywhere</span></h2>
+            <p class="lead">700level.com has been optimized for mobile devices. Now you can stay in the conversation and stay connected with your friends (or foes) no matter where you are. The 700level is with you everywhere you experience the Eagles. Take 700level.com to the tailgate, to the game, to training camp or to your favorite sports bar.</p>
+        </div>
+        <div class="col-md-5">
+            <img class="featurette-image img-responsive" src="images/spotlight_03.jpg" alt="Generic placeholder image">
+        </div>
+    </div>
+
+    <!-- /END THE FEATURETTES -->
+
+    <div class="content-container">
+        <hr>
+        <p><a class="btn btn-default" href="http://www.option8web.com/700level/index.html#" role="button">BACK TO TOP</a></p>
+    </div><!-- end content-container -->
