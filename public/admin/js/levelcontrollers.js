@@ -7,22 +7,42 @@ lvlControllers.controller('forumListCtrl', ['$scope',
 
 lvlControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http',
   function($scope, $routeParams, $http) {
-    var api_url = 'http://beta.700level.com/v1/forum/?callback=JSON_CALLBACK';
     $scope.pageSize = 25;
     $scope.pageNum = 1;
     $scope.resultCount = 0;
 
-    api_url += '&forum=' + $routeParams.forumName;
-    api_url += '&pageSize=' + $scope.pageSize;
-    api_url += '&startPage=' + $scope.pageNum;
-
     $scope.forumCode = $routeParams.forumName;
     $scope.forumName = TranslateForumName($routeParams.forumName);
 
-    $http.jsonp(api_url).success(function(data) {
+    getForumPage($scope.forumCode, $scope.pageSize, $scope.pageNum, function(data) {
       $scope.threadList = data;
       $scope.resultCount = data.length;
-    });
+    })
+
+    $scope.nextPage = function() {
+      $scope.pageNum++;
+      getForumPage($scope.forumCode, $scope.pageSize, $scope.pageNum, function(data) {
+        $scope.threadList = data;
+        $scope.resultCount = data.length;
+      })
+    }
+
+    $scope.prevPage = function() {
+      $scope.pageNum--;
+      getForumPage($scope.forumCode, $scope.pageSize, $scope.pageNum, function(data) {
+        $scope.threadList = data;
+        $scope.resultCount = data.length;
+      })
+    }
+
+    function getForumPage(forum, pageSize, pageNum, callback) {
+      var api_url = 'http://beta.700level.com/v1/forum/?callback=JSON_CALLBACK';
+      api_url += '&forum=' + forum;
+      api_url += '&pageSize=' + pageSize;
+      api_url += '&startPage=' + pageNum;
+
+      $http.jsonp(api_url).success(callback);
+    }
 
     function TranslateForumName(short_name) {
       var ret = '';
@@ -38,23 +58,44 @@ lvlControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http',
 
 lvlControllers.controller('threadDetailCtrl', ['$scope','$routeParams', '$http',
   function($scope, $routeParams, $http) {
-    var api_url = 'http://beta.700level.com/v1/forum/thread?callback=JSON_CALLBACK';
     $scope.pageSize = 25;
     $scope.pageNum = 1;
     $scope.resultCount = 0;
 
-    api_url += '&forum=' + $routeParams.forumName;
-    api_url += '&thread=' + $routeParams.threadName;
-    api_url += '&pageSize=' + $scope.pageSize;
-    api_url += '&startPage=' + $scope.pageNum;
-
     $scope.threadName = $routeParams.threadName;
+    $scope.forumCode = $routeParams.forumName;
     $scope.forumName = TranslateForumName($routeParams.forumName);
 
-    $http.jsonp(api_url).success(function(data) {
+    getThreadPage($scope.forumCode, $scope.threadName, $scope.pageSize, $scope.pageNum, function(data) {
       $scope.postList = data;
       $scope.resultCount = data.length;
-    });
+    })
+
+    $scope.nextPage = function() {
+      $scope.pageNum++;
+      getThreadPage($scope.forumCode, $scope.threadName, $scope.pageSize, $scope.pageNum, function(data) {
+        $scope.postList = data;
+        $scope.resultCount = data.length;
+      })
+    }
+
+    $scope.prevPage = function() {
+      $scope.pageNum--;
+      getThreadPage($scope.forumCode, $scope.threadName, $scope.pageSize, $scope.pageNum, function(data) {
+        $scope.postList = data;
+        $scope.resultCount = data.length;
+      })
+    }
+
+    function getThreadPage(forum, thread, pageSize, pageNum, callback) {
+      var api_url = 'http://beta.700level.com/v1/forum/thread?callback=JSON_CALLBACK';
+      api_url += '&forum=' + forum;
+      api_url += '&thread=' + thread;
+      api_url += '&pageSize=' + pageSize;
+      api_url += '&startPage=' + pageNum;
+
+      $http.jsonp(api_url).success(callback);
+    }
 
     function TranslateForumName(short_name) {
       var ret = '';
