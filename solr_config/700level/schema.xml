@@ -111,11 +111,14 @@
    <field name="forum" type="string" indexed="true" stored="true" multiValued="false" />
    <field name="forum_name" type="text_general" indexed="true" stored="true"/>
    <field name="thread" type="string" indexed="true" stored="true" multiValued="false" />
+   <field name="thread_id" type="string" indexed="true" stored="true"/>
+   <field name="thread_author" type="string" indexed="true" stored="true"/>
    <field name="thread_name" type="text_general" indexed="true" stored="true"/>
    <field name="thread_auto" type="text_auto" indexed="true" stored="false"/>
    <field name="post" type="text_general" indexed="true" stored="true" />
    <field name="last_modified" type="date" indexed="true" stored="true"/>
    <field name="ip_address" type="string" indexed="false" stored="true"/>
+   <field name="author" type="text_general" indexed="true" stored="true"/>
 
    <copyField source="forum" dest="forum_name" />
    <copyField source="thread" dest="thread_name" />
@@ -135,7 +138,6 @@
    <field name="subject" type="text_general" indexed="true" stored="true"/>
    <field name="description" type="text_general" indexed="true" stored="true"/>
    <field name="comments" type="text_general" indexed="true" stored="true"/>
-   <field name="author" type="text_general" indexed="true" stored="true"/>
    <field name="keywords" type="text_general" indexed="true" stored="true"/>
    <field name="category" type="text_general" indexed="true" stored="true"/>
    <field name="resourcename" type="text_general" indexed="true" stored="true"/>
