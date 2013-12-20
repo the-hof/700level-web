@@ -22,11 +22,10 @@ function getCallbackCloseFromQueryString(url_callback) {
   return retStr;
 }
 
-function getIntFromQueryString(url_int) {
-  var retInt = null;
-  if (url_int) retInt = parseInt(url_int);
+function getIntFromQueryString(url_int, default_value) {
+  if (url_int) return parseInt(url_int, 10);
 
-  return retInt;
+  return default_value;
 }
 
 function getSolrForumFromQueryString(url_forum) {
@@ -58,10 +57,10 @@ exports.listThreadsByForum = function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   var forumService = new ForumService();
   var forum = getSolrForumFromQueryString(req.query.forum);
-  var startPage = getIntFromQueryString(req.query.startPage);
-  var pageSize = getIntFromQueryString(req.query.pageSize);
+  var startPage = getIntFromQueryString(req.query.startPage,1);
+  var pageSize = getIntFromQueryString(req.query.pageSize,25);
 
-  forumService.listThreadsByForum(forum, startPage?startPage:1, pageSize?pageSize:25, function(err, threadList) {
+  forumService.listThreadsByForum(forum, startPage, pageSize, function(err, threadList) {
     if (err) throw err;
     res.end(wrapResponseInCallback(req.query.callback, JSON.stringify(threadList, null, 2)));
   })
@@ -91,8 +90,8 @@ exports.listPostsByThread = function(req, res) {
   var forum = getSolrForumFromQueryString(req.query.forum);
   var thread = getSolrThreadFromQueryString(req.query.thread);
   var threadId = getSolrThreadIdFromQueryString(req.query.threadId);
-  var startPage = getIntFromQueryString(req.query.startPage);
-  var pageSize = getIntFromQueryString(req.query.pageSize);
+  var startPage = getIntFromQueryString(req.query.startPage, 1);
+  var pageSize = getIntFromQueryString(req.query.pageSize, 25);
   if (threadId) {
     forumService.listPostsByThreadId(forum, threadId, startPage, pageSize, function (err, threadList) {
       if (err) throw err;

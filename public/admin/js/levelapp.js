@@ -14,7 +14,7 @@ lvlApp.config(['$routeProvider',
         templateUrl: 'partials/forum-detail.html',
         controller: 'forumDetailCtrl'
       }).
-      when('/forum/:forumName/:threadName', {
+      when('/forum/:forumName/:threadId', {
         templateUrl: 'partials/thread-detail.html',
         controller: 'threadDetailCtrl'
       }).

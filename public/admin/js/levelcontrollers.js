@@ -36,7 +36,7 @@ lvlControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http',
     }
 
     function getForumPage(forum, pageSize, pageNum, callback) {
-      var api_url = 'http://beta.700level.com/v1/forum/?callback=JSON_CALLBACK';
+      var api_url = 'http://localhost:3000/v1/forum/?callback=JSON_CALLBACK';
       api_url += '&forum=' + forum;
       api_url += '&pageSize=' + pageSize;
       api_url += '&startPage=' + pageNum;
@@ -62,18 +62,18 @@ lvlControllers.controller('threadDetailCtrl', ['$scope','$routeParams', '$http',
     $scope.pageNum = 1;
     $scope.resultCount = 0;
 
-    $scope.threadName = $routeParams.threadName;
+    $scope.threadId = $routeParams.threadId;
     $scope.forumCode = $routeParams.forumName;
     $scope.forumName = TranslateForumName($routeParams.forumName);
 
-    getThreadPage($scope.forumCode, $scope.threadName, $scope.pageSize, $scope.pageNum, function(data) {
+    getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.pageNum, function(data) {
       $scope.postList = data;
       $scope.resultCount = data.length;
     })
 
     $scope.nextPage = function() {
       $scope.pageNum++;
-      getThreadPage($scope.forumCode, $scope.threadName, $scope.pageSize, $scope.pageNum, function(data) {
+      getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.pageNum, function(data) {
         $scope.postList = data;
         $scope.resultCount = data.length;
       })
@@ -81,16 +81,16 @@ lvlControllers.controller('threadDetailCtrl', ['$scope','$routeParams', '$http',
 
     $scope.prevPage = function() {
       $scope.pageNum--;
-      getThreadPage($scope.forumCode, $scope.threadName, $scope.pageSize, $scope.pageNum, function(data) {
+      getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.pageNum, function(data) {
         $scope.postList = data;
         $scope.resultCount = data.length;
       })
     }
 
-    function getThreadPage(forum, thread, pageSize, pageNum, callback) {
-      var api_url = 'http://beta.700level.com/v1/forum/thread?callback=JSON_CALLBACK';
+    function getThreadPage(forum, threadId, pageSize, pageNum, callback) {
+      var api_url = 'http://localhost:3000/v1/forum/thread?callback=JSON_CALLBACK';
       api_url += '&forum=' + forum;
-      api_url += '&thread=' + thread;
+      api_url += '&threadId=' + threadId;
       api_url += '&pageSize=' + pageSize;
       api_url += '&startPage=' + pageNum;
 

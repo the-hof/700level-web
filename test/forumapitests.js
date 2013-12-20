@@ -114,6 +114,7 @@ describe('List Most Recent Threads By Forum API call', function () {
           expect(postList.length).to.equal(25);
           for (var i = 0; i < postList.length; i++) {
             expect(postList[i].name).to.be.ok();
+            expect(postList[i].thread_id).to.be.ok();
             expect(postList[i].forum).to.equal('Nose Bleeds');
           }
           done();
@@ -145,6 +146,7 @@ describe('List Most Recent Threads By Forum API call', function () {
           expect(postList.length).to.equal(25);
           for (var i = 0; i < postList.length; i++) {
             expect(postList[i].name).to.be.ok();
+            //expect(postList[i].thread_id).to.be.ok();
             expect(postList[i].forum).to.equal('Concourse');
           }
           done();
@@ -190,6 +192,7 @@ describe('List Most Recent Posts By Forum API call', function () {
             expect(postList[i].forum).to.be.ok();
             expect(postList[i].forum).to.equal('Nose Bleeds');
             expect(postList[i].thread).to.be.ok();
+            expect(postList[i].thread_id).to.be.ok();
             expect(postList[i].post).to.be.ok();
             expect(postList[i].last_modified).to.be.ok();
             expect(postList[i].ip_address).to.not.be.ok();
@@ -221,6 +224,7 @@ describe('List Most Recent Posts By Forum API call', function () {
             expect(postList[i].forum).to.be.ok();
             expect(postList[i].forum).to.equal('Concourse');
             expect(postList[i].thread).to.be.ok();
+            expect(postList[i].thread_id).to.be.ok();
             expect(postList[i].post).to.be.ok();
             expect(postList[i].last_modified).to.be.ok();
             expect(postList[i].ip_address).to.not.be.ok();
