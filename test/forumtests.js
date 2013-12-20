@@ -179,6 +179,60 @@ describe('Forum', function () {
     })
   });
 
+
+  describe('#listPostsByThread', function () {
+    it('should error when forum name blank', function (done) {
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      var thread = 'Auto test thread';
+      forumService.listPostsByThread('', thread, 1, 25, function (err, PostList) {
+        if (err && (err != 'Forum or thread not specified')) throw err;
+        expect(PostList).to.not.be.ok();
+        done();
+      })
+    })
+    it('should error when thread name blank', function (done) {
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      var thread = 'Auto test thread';
+      forumService.listPostsByThread(forum, '', 1, 25, function (err, PostList) {
+        if (err && (err != 'Forum or thread not specified')) throw err;
+        expect(PostList).to.not.be.ok();
+        done();
+      })
+    })
+    it('should return an array of posts', function (done) {
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      var thread = 'Auto test thread';
+      forumService.listPostsByThread(forum, thread, 1, 25, function (err, PostList) {
+        if (err) throw err;
+        expect(PostList).to.be.an('array');
+        expect(PostList).to.not.be.empty();
+        done();
+      })
+    })
+    it('should return a sorted array of posts', function (done) {
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      var thread = 'Auto test thread';
+      forumService.listPostsByThread(forum, thread, 1, 25, function (err, PostList) {
+        if (err) throw err;
+        expect(PostList).to.be.an('array');
+        expect(PostList).to.not.be.empty();
+        //loop through result set
+        //skipping the first one, so starting at i=1
+        for (var i = 1; i < PostList.length; i++) {
+          var prior_post_time = PostList[i - 1].last_modified;
+          var this_post_time = PostList[i].last_modified;
+          expect(this_post_time).to.be.greaterThan(prior_post_time);
+        }
+        done();
+      })
+    })
+  });
+
+
   describe('#listPostsByThreadId', function () {
     it('should error when thread id not supplied', function (done) {
       var forumService = new ForumService();
@@ -252,57 +306,6 @@ describe('Forum', function () {
     })
   })
 
-  describe('#listPostsByThread', function () {
-    it('should error when forum name blank', function (done) {
-      var forumService = new ForumService();
-      var forum = 'The Barrel';
-      var thread = 'Auto test thread';
-      forumService.listPostsByThread('', thread, 1, 25, function (err, PostList) {
-        if (err && (err != 'Forum or thread not specified')) throw err;
-        expect(PostList).to.not.be.ok();
-        done();
-      })
-    })
-    it('should error when thread name blank', function (done) {
-      var forumService = new ForumService();
-      var forum = 'The Barrel';
-      var thread = 'Auto test thread';
-      forumService.listPostsByThread(forum, '', 1, 25, function (err, PostList) {
-        if (err && (err != 'Forum or thread not specified')) throw err;
-        expect(PostList).to.not.be.ok();
-        done();
-      })
-    })
-    it('should return an array of posts', function (done) {
-      var forumService = new ForumService();
-      var forum = 'The Barrel';
-      var thread = 'Auto test thread';
-      forumService.listPostsByThread(forum, thread, 1, 25, function (err, PostList) {
-        if (err) throw err;
-        expect(PostList).to.be.an('array');
-        expect(PostList).to.not.be.empty();
-        done();
-      })
-    })
-    it('should return a sorted array of posts', function (done) {
-      var forumService = new ForumService();
-      var forum = 'The Barrel';
-      var thread = 'Auto test thread';
-      forumService.listPostsByThread(forum, thread, 1, 25, function (err, PostList) {
-        if (err) throw err;
-        expect(PostList).to.be.an('array');
-        expect(PostList).to.not.be.empty();
-        //loop through result set
-        //skipping the first one, so starting at i=1
-        for (var i = 1; i < PostList.length; i++) {
-          var prior_post_time = PostList[i - 1].last_modified;
-          var this_post_time = PostList[i].last_modified;
-          expect(this_post_time).to.be.greaterThan(prior_post_time);
-        }
-        done();
-      })
-    })
-  });
 
   describe('#listMostRecentPostsByForum', function () {
     it('should fail gracefully when forum does not exist', function (done) {
