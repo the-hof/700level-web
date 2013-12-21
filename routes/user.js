@@ -19,7 +19,7 @@ function getSolrEmailFromPOST(post_email) {
   return '';
 }
 
-exports.setFirstAdmin = function(req, res) {
+exports.setFirstAdmin = function (req, res) {
   var username = getSolrUserNameFromPOST(req.param('username'));
   var user = new UserService();
   user.checkSiteAdmin(function (err, HasAdmin) {
@@ -27,7 +27,7 @@ exports.setFirstAdmin = function(req, res) {
       user.getByUsername(username, function (err, SelectedUser) {
         if (err) throw err;
         if (!SelectedUser) res.send("couldn't find username in database");
-        user.setAdmin(SelectedUser.id, function(err) {
+        user.setAdmin(SelectedUser.id, function (err) {
           if (err) throw err;
           res.send("OK");
         })
@@ -39,7 +39,7 @@ exports.setFirstAdmin = function(req, res) {
   //res.send("not implemented");
 }
 
-exports.createNew = function(req, res) {
+exports.createNew = function (req, res) {
   var username = getSolrUserNameFromPOST(req.param('username'));
   var unhashed_password = getSolrUserNameFromPOST(req.param('password'));
   var email = getSolrUserNameFromPOST(req.param('email_address'));
@@ -52,6 +52,18 @@ exports.createNew = function(req, res) {
 
 }
 
-exports.list = function(req, res){
-  res.send("respond with a resource");
+exports.validate = function (req, res) {
+  var username = getSolrUserNameFromPOST(req.param('username'));
+  var unhashed_password = getSolrUserNameFromPOST(req.param('password'));
+  var user = new UserService();
+  var returnCode = 'THERE WAS AN ERROR';
+  user.getByUsernamePassword(username, unhashed_password, function (err, SelectedUser) {
+    if (err) {
+      returnCode = err.message
+    } else {
+      returnCode = SelectedUser.isValid ? 'valid' : 'username and password not found';
+    }
+    ;
+    res.send(returnCode);
+  })
 };

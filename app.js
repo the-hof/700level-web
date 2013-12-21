@@ -34,6 +34,7 @@ if ('development' == app.get('env')) {
 //API routes
 app.put('/v1/user/', user.createNew);
 app.get('/v1/user/', user.createNew);
+app.get('/v1/user/validate', user.validate);
 app.get('/v1/user/set_first_admin', user.setFirstAdmin);
 app.get('/v1/forum/most_recent', forum.mostRecent);
 app.get('/v1/forum/thread', forum.listPostsByThread);

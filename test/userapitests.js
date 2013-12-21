@@ -1,6 +1,6 @@
 var request = require('superagent');
-var request2 = require('superagent');
 var expect = require('expect.js');
+var uuid = require('node-uuid');
 var UserService = require('../lib/UserService');
 
 
@@ -127,6 +127,46 @@ describe('/user/set_first_admin', function () {
         expect(res).to.exist;
         expect(res.status).to.equal(200);
         expect(res.text).to.contain('admin already exists');
+        done();
+      });
+  })
+})
+
+describe('/user/validate', function () {
+  it ('should validate a known good user', function (done) {
+    var testURL = 'http://localhost:3000/v1/user/validate';
+    var testUser = {
+      "username": "apitest_get",
+      "password": "apitest_getpass"
+    }
+
+    request
+      .get(testURL)
+      .query(testUser)
+      .end(function (err, res) {
+        if (err) throw err;
+        expect(res).to.exist;
+        expect(res.status).to.equal(200);
+        expect(res.text).to.contain('valid');
+        done();
+      });
+  })
+
+  it ('should not find a random user', function (done) {
+    var testURL = 'http://localhost:3000/v1/user/validate';
+    var testUser = {
+      "username": uuid.v4(),
+      "password": uuid.v4()
+    }
+
+    request
+      .get(testURL)
+      .query(testUser)
+      .end(function (err, res) {
+        if (err) throw err;
+        expect(res).to.exist;
+        expect(res.status).to.equal(200);
+        expect(res.text).to.contain('not found');
         done();
       });
   })
