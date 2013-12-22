@@ -115,6 +115,7 @@ describe('List Most Recent Threads By Forum API call', function () {
           for (var i = 0; i < postList.length; i++) {
             expect(postList[i].name).to.be.ok();
             expect(postList[i].thread_id).to.be.ok();
+            expect(postList[i].thread_author).to.be.ok();
             expect(postList[i].forum).to.equal('Nose Bleeds');
           }
           done();
@@ -147,6 +148,7 @@ describe('List Most Recent Threads By Forum API call', function () {
           for (var i = 0; i < postList.length; i++) {
             expect(postList[i].name).to.be.ok();
             //expect(postList[i].thread_id).to.be.ok();
+            //expect(postList[i].thread_author).to.be.ok();
             expect(postList[i].forum).to.equal('Concourse');
           }
           done();

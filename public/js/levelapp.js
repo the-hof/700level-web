@@ -6,6 +6,10 @@ var levelApp = angular.module('levelApp', [
 levelApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
+      when('/forum/:forumName', {
+        templateUrl: 'partials/forum-detail.html',
+        controller: 'forumDetailCtrl'
+      }).
       when('/', {
         templateUrl: 'partials/home.html',
         controller: 'homeCtrl'
