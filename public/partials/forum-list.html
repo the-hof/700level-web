@@ -1,0 +1,94 @@
+<!-- Jumbotron
+================================================== -->
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>Brotherly Love? Not on Gameday</h1>
+
+        <p class="lead">Register today to discuss Philadelphia Eagles football with the most knowledgeable and
+            passionate fans of any team in the National Football League!</p><br>
+
+        <p style="margin:0px 0px 20px 0px;"><a class="btn btn-lg btn-primary" href="register.html"
+                                               role="button"><strong>JOIN 700LEVEL.COM</strong></a></p>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div class="content-container">
+
+        <div class="row">
+            <div class="col-md-3">
+                <!--<img class="img-circle" src="images/logo_icon_01.gif"> -->
+                <!--<h2><a href="#">Nosebleeds</a></h2> -->
+                <p><a class="btn-lg btn-info btn-block" href="/#/forum/nosebleeds"
+                      role="button"><strong>NOSEBLEEDS</strong></a></p>
+
+                <p>Anything goes here, this forum is aggressive and loud. Football is the focus while the 700level vets
+                    rule the board. Post to this forum and you're fair game!</p>
+            </div>
+            <!-- end col-md-3 -->
+
+            <div class="col-md-3">
+                <!--<img class="img-circle" src="images/logo_icon_01.gif"> -->
+                <!--<h2><a href="#">Concourse</a></h2> -->
+                <p><a class="btn-lg btn-info btn-block" href="/#/forum/concourse"
+                      role="button"><strong>CONCOURSE</strong></a></p>
+
+                <p>Got something to say about one of the other Philly sports franchises? Maybe you need some guidance
+                    from our esteemed user base. All non-football matters go here!</p>
+            </div>
+            <!-- end col-md-3 -->
+
+            <div class="col-md-3">
+                <!--<img class="img-circle" src="images/logo_icon_01.gif"> -->
+                <!--<h2><a href="#">Tailgate</a></h2> -->
+                <p><a class="btn-lg btn-info btn-block" href="/#/forum/tailgate" role="button"><strong>TAILGATE</strong></a>
+                </p>
+
+                <p>Wanna hook-up at the tailgate before the game? Looking to gather at a local sports bar or one out of
+                    town? Make arrangements to get together for the Eagles game here.</p>
+            </div>
+            <!-- end col-md-3 -->
+
+            <div class="col-md-3">
+                <!--<img class="img-circle" src="images/logo_icon_01.gif"> -->
+                <!--<h2><a href="#">Owner's Box</a></h2> -->
+                <p><a class="btn-lg btn-info btn-block" href="/#/forum/ownersbox" role="button"><strong>OWNER'S
+                    BOX</strong></a></p>
+
+                <p>Do you manage a Fantasy Football Franchise? Are you in need of some advice on the draft, an injured
+                    player or a trade? If you're into Fantasy Football Leagues this forum is the place to go.</p>
+            </div>
+            <!-- end col-md-3 -->
+        </div>
+        <!-- end row -->
+
+    </div>
+    <!-- end content-container -->
+
+    <hr>
+
+    <div class="content-container-left">
+
+        <h1>Most Recent Posts</h1>
+
+        <div ng-repeat="post in mostRecentPostList">
+            <h3>
+                <small>{{post.forum}}</small>
+                <br>
+                <a href="#/forum/nosebleeds/{{post.thread_id}}">{{post.thread}}</a></h3>
+            <p ng-bind-html="post.post"></p>
+
+            <hr>
+        </div>
+
+    </div>
+    <!-- end content-container-left -->
+
+    <div class="content-container">
+        <hr>
+        <p><a class="btn btn-default" href="#" role="button">BACK TO TOP</a></p>
+    </div>
+    <!-- end content-container -->

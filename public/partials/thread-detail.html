@@ -1,0 +1,75 @@
+<!-- Jumbotron
+================================================== -->
+
+<div class="jumbotron2">
+    <div class="container">
+        <h1>Fans' View Message Boards</h1>
+
+        <p class="lead">The best place to talk Philadelphia Eagles football with the most knowledgeable and passionate
+            fans of any team in the National Football League!</p><br>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div class="content-container-left">
+
+        <h2>{{forumName}}</h2>
+
+        <table class="table table-striped table-bordered">
+            <tr ng-repeat-start="post in postList">
+                <td>
+                    <h4>
+                        <small>{{post.author}}</small>
+                        <br/>
+                        {{post.thread}}
+                    </h4>
+                </td>
+                <td align="center" style="vertical-align:middle;">
+                    <p>{{post.last_modified}}</p>
+                </td>
+            </tr>
+            <tr ng-repeat-end>
+                <td colspan="2">
+                    <p ng-bind-html="post.post"></p>
+                    <hr>
+
+                    <p>
+                        <a class="btn btn-danger" href="reply.html" role="button">REPLY</a>
+                        <a class="btn btn-default" href="/#/forum/{{forumCode}}" role="button">FORUM</a>
+                        <a class="btn btn-default" href="/#/forum" role="button">ALL FORUMS</a>
+                    </p>
+                </td>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <!-- end content-container-left -->
+
+    <div class="content-container">
+
+        <div class="row">
+            <div class="col-md-3">
+                <p><a class="btn-lg btn-info btn-block" href="/#/forum/nosebleeds" role="button"><strong>NOSEBLEEDS</strong></a></p>
+            </div><!-- end col-md-3 -->
+
+            <div class="col-md-3">
+                <p><a class="btn-lg btn-info btn-block" href="/#/forum/concourse" role="button"><strong>CONCOURSE</strong></a></p>
+            </div><!-- end col-md-3 -->
+
+            <div class="col-md-3">
+                <p><a class="btn-lg btn-info btn-block" href="/#/forum/tailgate" role="button"><strong>TAILGATE</strong></a></p>
+            </div><!-- end col-md-3 -->
+
+            <div class="col-md-3">
+                <p><a class="btn-lg btn-info btn-block" href="/#/forum/ownersbox" role="button"><strong>OWNER'S BOX</strong></a></p>
+            </div><!-- end col-md-3 -->
+        </div><!-- end row -->
+
+        <hr>
+        <p><a class="btn btn-default" href="#" role="button">BACK TO TOP</a></p>
+
+
+    </div><!-- end content-container -->
