@@ -88,7 +88,7 @@
         <div ng-repeat="post in mostRecentPostList">
             <h3><small>{{post.forum}}</small>
                 <br>
-                <a href="http://www.option8web.com/700level/index.html#">{{post.thread}}</a></h3>
+                <a href="#/forum/nosebleeds/{{post.thread_id}}">{{post.thread}}</a></h3>
             <p ng-bind-html="post.post"></p>
 
             <hr>
