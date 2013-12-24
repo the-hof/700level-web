@@ -171,3 +171,59 @@ describe('/user/validate', function () {
       });
   })
 })
+
+describe('/loggedin', function() {
+  it ('should return 0 when no one is logged in', function(done) {
+    var testURL = 'http://localhost:3000/loggedin';
+
+    request
+      .get(testURL)
+      .end(function (err, res) {
+        if (err) throw err;
+        expect(res).to.exist;
+        expect(res.status).to.equal(200);
+        expect(res.text).to.equal('0');
+        done();
+      });
+  })
+})
+
+describe('login', function() {
+  it('should reject random users', function(done) {
+    var testURL = 'http://localhost:3000/login';
+    var testUser = {
+      "username": uuid.v4(),
+      "password": uuid.v4()
+    }
+
+    request
+      .post(testURL)
+      .send(testUser)
+      .end(function (err, res) {
+        if (err) throw err;
+        expect(res).to.exist;
+        expect(res.status).to.equal(401);
+        done();
+      });
+  })
+
+  it('should allow a valid user to log in', function(done) {
+    var testURL = 'http://localhost:3000/login';
+    var testUser = {
+      "username": "apitest_post",
+      "password": "apitest_postpass"
+    }
+
+    request
+      .post(testURL)
+      .send(testUser)
+      .end(function (err, res) {
+        if (err) throw err;
+        expect(res).to.exist;
+        expect(res.status).to.equal(200);
+        expect(res.text).to.contain('apitest_post');
+
+        done();
+      });
+  })
+})
