@@ -1,6 +1,7 @@
 var levelApp = angular.module('levelApp', [
   'ngRoute',
-  'levelControllers'
+  'levelControllers',
+  'levelDirectives'
 ]);
 
 levelApp.config(['$routeProvider',

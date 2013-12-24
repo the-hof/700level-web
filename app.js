@@ -56,15 +56,39 @@ if ('development' == app.get('env')) {
 }
 
 //Authentication routes
+function wrapResponseInCallback(callbackQuerystring, responseText) {
+  return getCallbackOpenFromQueryString(callbackQuerystring)
+    + responseText
+    + getCallbackCloseFromQueryString(callbackQuerystring);
+}
+
+function getCallbackOpenFromQueryString(url_callback) {
+  var retStr = '';
+  if (url_callback) retStr = url_callback + '(';
+  return retStr;
+}
+
+function getCallbackCloseFromQueryString(url_callback) {
+  var retStr = '';
+  if (url_callback) retStr = ')';
+  return retStr;
+}
+
 app.get('/loggedin', function(req, res) {
-  res.send(req.isAuthenticated() ? req.user : '0');
+  res.setHeader('Content-Type', 'application/json');
+  res.send(
+    wrapResponseInCallback(
+      req.query.callback, req.isAuthenticated() ? req.user.username : JSON.stringify({username:'anonymous'})
+    )
+  );
 });
 // route to log in
-app.post('/login', passport.authenticate('local'), function(req, res) {
-  res.send(req.user);
+app.get('/login', passport.authenticate('local'), function(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(wrapResponseInCallback(req.query.callback, JSON.stringify({username:req.user.username})));
 });
 // route to log out
-app.post('/logout', function(req, res){
+app.get('/logout', function(req, res){
   req.logOut();
   res.send(200);
 });

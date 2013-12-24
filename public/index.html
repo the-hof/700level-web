@@ -28,6 +28,8 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+
+    <link href="/css/modal.css" rel="stylesheet">
 </head>
 
 <body style="">
@@ -63,11 +65,9 @@
                     </ul>
                 </li>
                 <li>
-                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"
-                            style="margin:10px 0px 0px 10px;">
-                        LOGIN
-                    </button>
+                    <level-Login></level-Login>
                 </li>
+
             </ul>
 
         </div>
@@ -84,68 +84,6 @@
 
 </div>
 <!-- /.container -->
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">Login to 700level.com</h4>
-            </div>
-            <div class="modal-body">
-
-
-                <form class="form-horizontal" role="form">
-                    <div class="form-group">
-                        <label for="inputUsername" class="col-sm-2 control-label">Username</label>
-
-                        <div class="col-sm-10">
-                            <input type="username" class="form-control" id="inputEmail3" placeholder="Username">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-
-                        <div class="col-sm-10">
-                            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox"> Remember me
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-                <div class="row">
-                    <div class="col-sm-offset-2 col-sm-10">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default">Register</button>
-                            <button type="button" class="btn btn-default">Profile Manager</button>
-                            <button type="button" class="btn btn-default">Retrieve Password</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- /.modal-body -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">LOGIN</button>
-            </div>
-
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 
 </div><!-- end container -->
 
@@ -184,8 +122,11 @@
 <script src="lib/angular-sanitize.min.js"></script>
 <script src="lib/angular-cookies.min.js"></script>
 
-<script src="js/levelapp.js?v=000"></script>
+<script src="lib/ui-bootstrap-tpls-0.7.0.js"></script>
+
 <script src="js/leveldirectives.js?v=000"></script>
+<script src="js/levelapp.js?v=000"></script>
+
 <script src="js/levelcontrollers.js?v=000"></script>
 
 </body>

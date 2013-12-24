@@ -1,0 +1,62 @@
+<!-- Modal -->
+<div class="modal">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">×</button>
+            <h4 class="modal-title" id="myModalLabel">Login to 700level.com</h4>
+        </div>
+        <div class="modal-body">
+
+
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="inputUsername" class="col-sm-2 control-label">Username</label>
+
+                    <div class="col-sm-10">
+                        <input type="username" class="form-control" ng-model="username" placeholder="Username">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" ng-model="password" placeholder="Password">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember me
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default">Register</button>
+                        <!--
+                        <button type="button" class="btn btn-default">Profile Manager</button>
+                        <button type="button" class="btn btn-default">Retrieve Password</button>
+                        -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.modal-body -->
+        <div ng-if="user.isInvalid">
+            <alert class="alert-error">{{user.message}}</alert>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" ng-click="doLogin(username, password)">LOGIN</button>
+        </div>
+    </div>
+</div>
+</div>
