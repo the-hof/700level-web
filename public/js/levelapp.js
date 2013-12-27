@@ -7,6 +7,10 @@ var levelApp = angular.module('levelApp', [
 levelApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider
+      .when('/forum/:forumName/:threadId/reply', {
+        templateUrl: 'partials/thread-reply.html',
+        controller: 'threadReplyCtrl'
+      })
       .when('/forum/:forumName/:threadId', {
         templateUrl: 'partials/thread-detail.html',
         controller: 'threadDetailCtrl'

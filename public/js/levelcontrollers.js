@@ -71,28 +71,41 @@ levelControllers.controller('threadDetailCtrl', ['$scope','$routeParams', '$http
     $scope.forumName = TranslateForumName($routeParams.forumName);
 
     getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.pageNum, function(data) {
-      $scope.postList = data;
-      $scope.resultCount = data.length;
+      $scope.postList = data.docs;
+      $scope.resultCount = data.docs.length;
+      $scope.numPages = Math.ceil(data.postCount/$scope.pageSize);
+      $scope.pageList = [];
+      for(var i=0; i<$scope.numPages; i++) {
+        $scope.pageList.push(i+1);
+      }
     })
+
+    $scope.jumpToPage = function(pageNum) {
+      $scope.pageNum = pageNum;
+      getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.pageNum, function(data) {
+        $scope.postList = data.docs;
+        $scope.resultCount = data.docs.length;
+      })
+    }
 
     $scope.nextPage = function() {
       $scope.pageNum++;
       getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.pageNum, function(data) {
-        $scope.postList = data;
-        $scope.resultCount = data.length;
+        $scope.postList = data.docs;
+        $scope.resultCount = data.docs.length;
       })
     }
 
     $scope.prevPage = function() {
       $scope.pageNum--;
       getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.pageNum, function(data) {
-        $scope.postList = data;
-        $scope.resultCount = data.length;
+        $scope.postList = data.docs;
+        $scope.resultCount = data.docs.length;
       })
     }
 
     function getThreadPage(forum, threadId, pageSize, pageNum, callback) {
-      var api_url = 'http://beta.700level.com/v1/forum/thread?callback=JSON_CALLBACK';
+      var api_url = 'http://localhost:3000/v1/forum/thread?callback=JSON_CALLBACK';
       api_url += '&forum=' + forum;
       api_url += '&threadId=' + threadId;
       api_url += '&pageSize=' + pageSize;
@@ -112,3 +125,7 @@ levelControllers.controller('threadDetailCtrl', ['$scope','$routeParams', '$http
     }
   }]);
 
+levelControllers.controller('threadReplyCtrl', ['$scope','$routeParams', '$http',
+  function($scope, $routeParams, $http) {
+
+  }]);

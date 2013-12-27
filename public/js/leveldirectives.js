@@ -22,7 +22,7 @@ angular.module('levelDirectives', ['ui.bootstrap'])
             $scope.user.name = data.username;
             $modalInstance.close($scope.user);
           })
-          .error(function(data) {
+          .error(function (data) {
             $scope.user.isInvalid = true;
             $scope.user.message = 'invalid username or password';
           })
@@ -44,15 +44,21 @@ angular.module('levelDirectives', ['ui.bootstrap'])
       replace: true,
       controller: function ($scope, $http, $modal) {
 
-        $http.jsonp(userInfoUrl).success(function (data) {
-          if (data.username == 'anonymous') {
-            $scope.username = 'LOGIN';
-            $scope.loginClass = "btn btn-primary btn-sm";
-          } else {
-            $scope.username = 'Logout: ' + data.username;
-            $scope.loginClass = "btn btn-primary btn-sm";
-          }
-        });
+        $http
+          .jsonp(userInfoUrl)
+          .success(function (data) {
+            if (data.username == 'anonymous') {
+              $scope.username = 'LOGIN';
+              $scope.loginClass = "btn btn-primary btn-sm";
+            } else {
+              $scope.username = 'Logout: ' + data.username;
+              $scope.loginClass = "btn btn-primary btn-sm";
+            }
+          })
+          .error(function (err) {
+            $scope.username == 'LOGIN';
+            $scope.loginClass = "but btn-primary btn-sm";
+          });
 
         $scope.openLoginModal = function () {
           var modalInstance = $modal.open({
