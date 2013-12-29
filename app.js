@@ -73,8 +73,8 @@ app.get('/v1/user/validate', user.validate);
 app.get('/v1/user/set_first_admin', user.setFirstAdmin);
 app.get('/v1/forum/most_recent', forum.mostRecent);
 app.get('/v1/forum/thread', forum.listPostsByThread);
-//app.post('/v1/forum/thread', passport.authenticate('local'), forum.addNewPost);
-//app.put('/v1/forum/thread', passport.authenticate('local'), forum.addNewPost);
+app.post('/v1/forum/thread', forum.addNewPost);
+app.put('/v1/forum/thread', forum.addNewPost);
 app.get('/v1/forum', forum.listThreadsByForum);
 
 http.createServer(app).listen(app.get('port'), function(){

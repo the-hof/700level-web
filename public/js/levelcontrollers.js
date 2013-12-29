@@ -143,6 +143,18 @@ levelControllers.controller('threadReplyCtrl', ['$scope','$routeParams', '$http'
       var api_url = 'http://beta.700level.com/v1/forum/thread?callback=JSON_CALLBACK';
       api_url += '&forum=' + $scope.forumCode;
       api_url += '&threadId=' + $scope.threadId;
+
+      var postBody = {
+        post: $scope.post,
+        inputURL: $scope.inputURL,
+        thread: $scope.threadName
+      }
+
+      $http
+        .post(api_url, postBody)
+        .success(function(data) {
+
+        })
     }
 
     function getThreadPage(forum, threadId, pageSize, pageNum, callback) {

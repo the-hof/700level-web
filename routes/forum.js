@@ -110,4 +110,13 @@ exports.addNewPost = function (req, res) {
   var forumService = new ForumService();
   var forum = getSolrForumFromQueryString(req.query.forum);
   var threadId = getSolrThreadIdFromQueryString(req.query.threadId);
+  if (req.isAuthenticated()) {
+    forumService.savePost(req.user.username, '', forum, req.body.thread, threadId, req.body.post, '', function(err) {
+      if (err) throw err;
+      res.send(200);
+    })
+
+  } else {
+    res.send(401);
+  }
 }

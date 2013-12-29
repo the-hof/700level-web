@@ -100,7 +100,8 @@ exports.loggedin = function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   res.send(
     wrapResponseInCallback(
-      req.query.callback, req.isAuthenticated() ? req.user.username : JSON.stringify({username:'anonymous'})
+      req.query.callback,
+      req.isAuthenticated() ? JSON.stringify({username:req.user.username}) : JSON.stringify({username:'anonymous'})
     )
   );
 };

@@ -73,7 +73,7 @@ angular.module('levelDirectives', ['ui.bootstrap'])
 
           modalInstance.result.then(function (user) {
             $scope.username = 'Logout: ' + user.name;
-            $scope.loginClass = "btn btn-sm";
+            $scope.loginClass = "btn btn-primary btn-sm";
           });
         };
 
