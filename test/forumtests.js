@@ -207,8 +207,8 @@ describe('Forum', function () {
       var thread = 'Auto test thread';
       forumService.listPostsByThread(forum, thread, 1, 25, function (err, PostList) {
         if (err) throw err;
-        expect(PostList).to.be.an('array');
-        expect(PostList).to.not.be.empty();
+        expect(PostList.docs).to.be.an('array');
+        expect(PostList.docs).to.not.be.empty();
         done();
       })
     })
@@ -218,13 +218,13 @@ describe('Forum', function () {
       var thread = 'Auto test thread';
       forumService.listPostsByThread(forum, thread, 1, 25, function (err, PostList) {
         if (err) throw err;
-        expect(PostList).to.be.an('array');
-        expect(PostList).to.not.be.empty();
+        expect(PostList.docs).to.be.an('array');
+        expect(PostList.docs).to.not.be.empty();
         //loop through result set
         //skipping the first one, so starting at i=1
-        for (var i = 1; i < PostList.length; i++) {
-          var prior_post_time = PostList[i - 1].last_modified;
-          var this_post_time = PostList[i].last_modified;
+        for (var i = 1; i < PostList.docs.length; i++) {
+          var prior_post_time = PostList.docs[i - 1].last_modified;
+          var this_post_time = PostList.docs[i].last_modified;
           expect(this_post_time).to.be.greaterThan(prior_post_time);
         }
         done();
@@ -241,7 +241,7 @@ describe('Forum', function () {
       var threadId = '';
       forumService.listPostsByThread(forum, thread, 1, 1, function (err, ControlPostList) {
         if (err) throw err;
-        threadId = ControlPostList[0].thread_id;
+        threadId = ControlPostList.docs[0].thread_id;
         forumService.listPostsByThreadId('', threadId, 1, 25, function (err, PostList) {
           if (err && (err != 'Forum or thread not specified')) throw err;
           expect(PostList).to.not.be.ok();
@@ -257,7 +257,7 @@ describe('Forum', function () {
       var threadId = '';
       forumService.listPostsByThread(forum, thread, 1, 1, function (err, ControlPostList) {
         if (err) throw err;
-        threadId = ControlPostList[0].thread_id;
+        threadId = ControlPostList.docs[0].thread_id;
         forumService.listPostsByThreadId(forum, '', 1, 25, function (err, PostList) {
           if (err && (err != 'Forum or thread not specified')) throw err;
           expect(PostList).to.not.be.ok();
@@ -272,11 +272,11 @@ describe('Forum', function () {
       var threadId = '';
       forumService.listPostsByThread(forum, thread, 1, 1, function (err, ControlPostList) {
         if (err) throw err;
-        threadId = ControlPostList[0].thread_id;
+        threadId = ControlPostList.docs[0].thread_id;
         forumService.listPostsByThreadId(forum, threadId, 1, 25, function (err, PostList) {
           if (err) throw err;
-          expect(PostList).to.be.an('array');
-          expect(PostList).to.not.be.empty();
+          expect(PostList.docs).to.be.an('array');
+          expect(PostList.docs).to.not.be.empty();
           done();
         })
       })
@@ -288,9 +288,10 @@ describe('Forum', function () {
       var threadId = '';
       forumService.listPostsByThread(forum, thread, 1, 1, function (err, ControlPostList) {
         if (err) throw err;
-        threadId = ControlPostList[0].thread_id;
+        threadId = ControlPostList.docs[0].thread_id;
         forumService.listPostsByThreadId(forum, threadId, 1, 25, function (err, PostList) {
           if (err) throw err;
+          PostList = PostList.docs;
           expect(PostList).to.be.an('array');
           expect(PostList).to.not.be.empty();
           //loop through result set
@@ -355,7 +356,7 @@ describe('Forum', function () {
         if (err) throw err;
         forumService.listPostsByThread(forum, thread, 1, 25, function (err, PostList) {
           if (err) throw err;
-          expect(PostList.length).to.equal(0);
+          expect(PostList.docs.length).to.equal(0);
           done();
         })
       });

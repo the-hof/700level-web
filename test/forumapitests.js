@@ -10,15 +10,15 @@ describe('List Most Recent Posts By ThreadId API call', function () {
     var forumService = new ForumService();
     forumService.listPostsByThread('Nose Bleeds', threadName, 1, 1, function (err, ControlPostList) {
       if (err) throw err;
-      threadId = ControlPostList[0].thread_id;
+      threadId = ControlPostList.docs[0].thread_id;
       testURL += '&threadId=' + threadId;
       request
         .get(testURL, function (err, res) {
           expect(res).to.exist;
-          //console.log(res);
           expect(res.status).to.equal(200);
           try {
             var postList = JSON.parse(res.text);
+            postList = postList.docs;
             expect(postList.length).to.equal(25);
             for (var i = 0; i < postList.length; i++) {
               expect(postList[i].id).to.be.ok();
@@ -57,6 +57,7 @@ describe('List Most Recent Posts By Thread API call', function () {
         expect(res.status).to.equal(200);
         try {
           var postList = JSON.parse(res.text);
+          postList = postList.docs;
           expect(postList.length).to.equal(25);
           for (var i = 0; i < postList.length; i++) {
             expect(postList[i].id).to.be.ok();

@@ -125,7 +125,36 @@ levelControllers.controller('threadDetailCtrl', ['$scope','$routeParams', '$http
     }
   }]);
 
-levelControllers.controller('threadReplyCtrl', ['$scope','$routeParams', '$http',
-  function($scope, $routeParams, $http) {
+levelControllers.controller('threadReplyCtrl', ['$scope','$routeParams', '$http', '$location',
+  function($scope, $routeParams, $http, $location) {
+    $scope.threadId = $routeParams.threadId;
+    $scope.forumCode = $routeParams.forumName;
 
+    getThreadPage($scope.forumCode, $scope.threadId, 1, 1, function(data) {
+
+    })
+
+    $scope.cancel = function() {
+      var returnTarget = '/forum/' + $scope.forumCode +'/' + $scope.threadId;
+      $location.path(returnTarget);
+    };
+
+    $scope.talkback = function() {
+      var api_url = 'http://beta.700level.com/v1/forum/thread?callback=JSON_CALLBACK';
+      api_url += '&forum=' + $scope.forumCode;
+      api_url += '&threadId=' + $scope.threadId;
+    }
+
+    function getThreadPage(forum, threadId, pageSize, pageNum, callback) {
+      var api_url = 'http://beta.700level.com/v1/forum/thread?callback=JSON_CALLBACK';
+      api_url += '&forum=' + forum;
+      api_url += '&threadId=' + threadId;
+      api_url += '&pageSize=' + pageSize;
+      api_url += '&startPage=' + pageNum;
+
+      $http.jsonp(api_url).success(function(data) {
+        $scope.threadName = data.docs[0].thread;
+        return callback(data);
+      });
+    }
   }]);

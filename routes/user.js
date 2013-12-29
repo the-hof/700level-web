@@ -1,5 +1,23 @@
 var UserService = require('../lib/UserService');
 
+function wrapResponseInCallback(callbackQuerystring, responseText) {
+  return getCallbackOpenFromQueryString(callbackQuerystring)
+    + responseText
+    + getCallbackCloseFromQueryString(callbackQuerystring);
+}
+
+function getCallbackOpenFromQueryString(url_callback) {
+  var retStr = '';
+  if (url_callback) retStr = url_callback + '(';
+  return retStr;
+}
+
+function getCallbackCloseFromQueryString(url_callback) {
+  var retStr = '';
+  if (url_callback) retStr = ')';
+  return retStr;
+}
+
 /*
  * GET users listing.
  */
@@ -66,4 +84,23 @@ exports.validate = function (req, res) {
     ;
     res.send(returnCode);
   })
+};
+
+exports.login = function(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(wrapResponseInCallback(req.query.callback, JSON.stringify({username:req.user.username})));
+};
+
+exports.logout = function(req, res){
+  req.logOut();
+  res.send(200);
+};
+
+exports.loggedin = function(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(
+    wrapResponseInCallback(
+      req.query.callback, req.isAuthenticated() ? req.user.username : JSON.stringify({username:'anonymous'})
+    )
+  );
 };

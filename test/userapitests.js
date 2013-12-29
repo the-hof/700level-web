@@ -182,7 +182,7 @@ describe('/loggedin', function() {
         if (err) throw err;
         expect(res).to.exist;
         expect(res.status).to.equal(200);
-        expect(res.text).to.equal('anonymous');
+        expect(res.text).to.contain('anonymous');
         done();
       });
   })

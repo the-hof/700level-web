@@ -4,8 +4,10 @@ var levelApp = angular.module('levelApp', [
   'levelDirectives'
 ]);
 
-levelApp.config(['$routeProvider',
-  function($routeProvider) {
+levelApp.config(['$routeProvider', '$locationProvider',
+  function($routeProvider, $locationProvider) {
+
+
     $routeProvider
       .when('/forum/:forumName/:threadId/reply', {
         templateUrl: 'partials/thread-reply.html',

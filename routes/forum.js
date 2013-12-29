@@ -103,6 +103,11 @@ exports.listPostsByThread = function(req, res) {
       res.end(wrapResponseInCallback(req.query.callback, JSON.stringify(threadList, stringifyPosts, 2)));
     })
   }
-
-
 };
+
+exports.addNewPost = function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  var forumService = new ForumService();
+  var forum = getSolrForumFromQueryString(req.query.forum);
+  var threadId = getSolrThreadIdFromQueryString(req.query.threadId);
+}

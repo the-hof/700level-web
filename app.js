@@ -56,42 +56,15 @@ if ('development' == app.get('env')) {
 }
 
 //Authentication routes
-function wrapResponseInCallback(callbackQuerystring, responseText) {
-  return getCallbackOpenFromQueryString(callbackQuerystring)
-    + responseText
-    + getCallbackCloseFromQueryString(callbackQuerystring);
-}
-
-function getCallbackOpenFromQueryString(url_callback) {
-  var retStr = '';
-  if (url_callback) retStr = url_callback + '(';
-  return retStr;
-}
-
-function getCallbackCloseFromQueryString(url_callback) {
-  var retStr = '';
-  if (url_callback) retStr = ')';
-  return retStr;
-}
-
-app.get('/loggedin', function(req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(
-    wrapResponseInCallback(
-      req.query.callback, req.isAuthenticated() ? req.user.username : JSON.stringify({username:'anonymous'})
-    )
-  );
-});
+app.get('/loggedin', user.loggedin);
 // route to log in
-app.get('/login', passport.authenticate('local'), function(req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(wrapResponseInCallback(req.query.callback, JSON.stringify({username:req.user.username})));
-});
+app.get('/login', passport.authenticate('local'), user.login);
+app.post('/login', passport.authenticate('local'), user.login);
+app.put('/login', passport.authenticate('local'), user.login);
 // route to log out
-app.get('/logout', function(req, res){
-  req.logOut();
-  res.send(200);
-});
+app.get('/logout', user.logout);
+app.post('/logout', user.logout);
+app.put('/logout', user.logout);
 
 //API routes
 app.put('/v1/user/', user.createNew);
@@ -100,6 +73,8 @@ app.get('/v1/user/validate', user.validate);
 app.get('/v1/user/set_first_admin', user.setFirstAdmin);
 app.get('/v1/forum/most_recent', forum.mostRecent);
 app.get('/v1/forum/thread', forum.listPostsByThread);
+//app.post('/v1/forum/thread', passport.authenticate('local'), forum.addNewPost);
+//app.put('/v1/forum/thread', passport.authenticate('local'), forum.addNewPost);
 app.get('/v1/forum', forum.listThreadsByForum);
 
 http.createServer(app).listen(app.get('port'), function(){
