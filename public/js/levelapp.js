@@ -13,7 +13,7 @@ levelApp.config(['$routeProvider', '$locationProvider',
         templateUrl: 'partials/thread-reply.html',
         controller: 'threadReplyCtrl'
       })
-      .when('/forum/:forumName/:threadId', {
+      .when('/forum/:forumName/:threadId/:threadPage?', {
         templateUrl: 'partials/thread-detail.html',
         controller: 'threadDetailCtrl'
       })

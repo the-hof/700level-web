@@ -60,8 +60,8 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
 
   }]);
 
-levelControllers.controller('threadDetailCtrl', ['$scope','$routeParams', '$http',
-  function($scope, $routeParams, $http) {
+levelControllers.controller('threadDetailCtrl', ['$scope','$routeParams', '$http', '$location',
+  function($scope, $routeParams, $http, $location) {
     $scope.pageSize = 25;
     $scope.pageNum = 1;
     $scope.resultCount = 0;
@@ -69,6 +69,17 @@ levelControllers.controller('threadDetailCtrl', ['$scope','$routeParams', '$http
     $scope.threadId = $routeParams.threadId;
     $scope.forumCode = $routeParams.forumName;
     $scope.forumName = TranslateForumName($routeParams.forumName);
+
+    //check for paging
+    if ($routeParams.threadPage) {
+
+      if ($routeParams.threadPage === 'max') {
+        $scope.pageNum = '1';
+      }
+      else {
+        $scope.pageNum = $routeParams.threadPage;
+      }
+    }
 
     getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.pageNum, function(data) {
       $scope.postList = data.docs;
@@ -78,30 +89,26 @@ levelControllers.controller('threadDetailCtrl', ['$scope','$routeParams', '$http
       for(var i=0; i<$scope.numPages; i++) {
         $scope.pageList.push(i+1);
       }
+
+      // if we request the last page in the thread, set that now
+      if ($routeParams.threadPage === 'max') {
+        $scope.jumpToPage($scope.numPages);
+      }
     })
 
     $scope.jumpToPage = function(pageNum) {
-      $scope.pageNum = pageNum;
-      getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.pageNum, function(data) {
-        $scope.postList = data.docs;
-        $scope.resultCount = data.docs.length;
-      })
+      var returnTarget = '/forum/' + $scope.forumCode +'/' + $scope.threadId +'/' + pageNum;
+      $location.path(returnTarget);
     }
 
     $scope.nextPage = function() {
-      $scope.pageNum++;
-      getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.pageNum, function(data) {
-        $scope.postList = data.docs;
-        $scope.resultCount = data.docs.length;
-      })
+      var returnTarget = '/forum/' + $scope.forumCode +'/' + $scope.threadId +'/' + ($scope.pageNum+1);
+      $location.path(returnTarget);
     }
 
     $scope.prevPage = function() {
-      $scope.pageNum--;
-      getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.pageNum, function(data) {
-        $scope.postList = data.docs;
-        $scope.resultCount = data.docs.length;
-      })
+      var returnTarget = '/forum/' + $scope.forumCode +'/' + $scope.threadId +'/' + ($scope.pageNum-1);
+      $location.path(returnTarget);
     }
 
     function getThreadPage(forum, threadId, pageSize, pageNum, callback) {
@@ -153,7 +160,8 @@ levelControllers.controller('threadReplyCtrl', ['$scope','$routeParams', '$http'
       $http
         .post(api_url, postBody)
         .success(function(data) {
-
+          var returnTarget = '/forum/' + $scope.forumCode +'/' + $scope.threadId + '/max';
+          $location.path(returnTarget);
         })
     }
 
