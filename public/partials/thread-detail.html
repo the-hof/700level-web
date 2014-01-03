@@ -1,6 +1,12 @@
 <!-- Jumbotron
 ================================================== -->
 
+<style>
+    .bold {
+        font-weight: bold;
+    }
+</style>
+
 <div class="jumbotron2">
     <div class="container">
         <h1>Fans' View Message Boards</h1>
@@ -18,9 +24,15 @@
         <h2>{{forumName}}</h2>
 
         <ul class="pagination">
-            <li><a ng-click="prevPage();">&laquo;</a></li>
-            <li ng-repeat="page in pageList"><a ng-click="jumpToPage($index+1);">{{page}}</a></li>
-            <li><a ng-click="nextPage();">&raquo;</a></li>
+            <li><a ng-click="jumpToPage(1)">&laquo; First</a></li>
+            <li><a ng-click="prevPage();">&laquo; Prev</a></li>
+            <li ng-repeat="page in pageList">
+                <a ng-click="jumpToPage(pageList[$index]);" ng-class="((pageList[$index] === pageNum)?'bold':'')">
+                    {{pageList[$index]}}
+                </a>
+            </li>
+            <li><a ng-click="nextPage();">Next &raquo;</a></li>
+            <li><a ng-click="jumpToPage('max');">Last &raquo;</a></li>
         </ul>
 
         <table class="table table-striped table-bordered">
@@ -42,14 +54,26 @@
                     <hr>
 
                     <p>
-                        <a class="btn btn-danger" href="#/forum/{{forumCode}}/{{post.thread_id}}/reply" role="button">REPLY</a>
-                        <a class="btn btn-default" href="/#/forum/{{forumCode}}" role="button">FORUM</a>
-                        <a class="btn btn-default" href="/#/forum" role="button">ALL FORUMS</a>
+                        <a class="btn btn-danger" href="#/fansview/{{forumCode}}/thread/{{post.thread_id}}/reply" role="button">REPLY</a>
+                        <a class="btn btn-default" href="/#/fansview/{{forumCode}}" role="button">FORUM</a>
+                        <a class="btn btn-default" href="/#/fansview" role="button">ALL FORUMS</a>
                     </p>
                 </td>
                 </td>
             </tr>
         </table>
+
+        <ul class="pagination">
+            <li><a ng-click="jumpToPage(1)">&laquo; First</a></li>
+            <li><a ng-click="prevPage();">&laquo; Prev</a></li>
+            <li ng-repeat="page in pageList">
+                <a ng-click="jumpToPage(pageList[$index]);" ng-class="((pageList[$index] === pageNum)?'bold':'')">
+                    {{pageList[$index]}}
+                </a>
+            </li>
+            <li><a ng-click="nextPage();">Next &raquo;</a></li>
+            <li><a ng-click="jumpToPage('max');">Last &raquo;</a></li>
+        </ul>
 
     </div>
     <!-- end content-container-left -->
@@ -58,19 +82,19 @@
 
         <div class="row">
             <div class="col-md-3">
-                <p><a class="btn-lg btn-info btn-block" href="/#/forum/nosebleeds" role="button"><strong>NOSEBLEEDS</strong></a></p>
+                <p><a class="btn-lg btn-info btn-block" href="/#/fansview/nosebleeds" role="button"><strong>NOSEBLEEDS</strong></a></p>
             </div><!-- end col-md-3 -->
 
             <div class="col-md-3">
-                <p><a class="btn-lg btn-info btn-block" href="/#/forum/concourse" role="button"><strong>CONCOURSE</strong></a></p>
+                <p><a class="btn-lg btn-info btn-block" href="/#/fansview/concourse" role="button"><strong>CONCOURSE</strong></a></p>
             </div><!-- end col-md-3 -->
 
             <div class="col-md-3">
-                <p><a class="btn-lg btn-info btn-block" href="/#/forum/tailgate" role="button"><strong>TAILGATE</strong></a></p>
+                <p><a class="btn-lg btn-info btn-block" href="/#/fansview/tailgate" role="button"><strong>TAILGATE</strong></a></p>
             </div><!-- end col-md-3 -->
 
             <div class="col-md-3">
-                <p><a class="btn-lg btn-info btn-block" href="/#/forum/ownersbox" role="button"><strong>OWNER'S BOX</strong></a></p>
+                <p><a class="btn-lg btn-info btn-block" href="/#/fansview/ownersbox" role="button"><strong>OWNER'S BOX</strong></a></p>
             </div><!-- end col-md-3 -->
         </div><!-- end row -->
 

@@ -9,19 +9,19 @@ levelApp.config(['$routeProvider', '$locationProvider',
 
 
     $routeProvider
-      .when('/forum/:forumName/:threadId/reply', {
+      .when('/fansview/:forumName/thread/:threadId/reply', {
         templateUrl: 'partials/thread-reply.html',
         controller: 'threadReplyCtrl'
       })
-      .when('/forum/:forumName/:threadId/:threadPage?', {
+      .when('/fansview/:forumName/thread/:threadId/:threadPage?', {
         templateUrl: 'partials/thread-detail.html',
         controller: 'threadDetailCtrl'
       })
-      .when('/forum/:forumName', {
+      .when('/fansview/:forumName/:forumPage?', {
         templateUrl: 'partials/forum-detail.html',
         controller: 'forumDetailCtrl'
       })
-      .when('/forum', {
+      .when('/fansview', {
         templateUrl: 'partials/forum-list.html',
         controller: 'homeCtrl'
       })

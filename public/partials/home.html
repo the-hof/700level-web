@@ -59,7 +59,7 @@
                 <img class="img-circle" src="images/logo_icon_01.gif">
                 <h2>Fans' View</h2>
                 <p>The 700level.com message boards have been a part of the Philadelphia Eagles conversation since 1999. Join the greatest community of fans on the planet to talk about the team and the game!</p>
-                <p><a class="btn btn-default" href="/#/forum" role="button">Enter The Boards »</a></p>
+                <p><a class="btn btn-default" href="/#/fansview" role="button">Enter The Boards »</a></p>
             </div><!-- end col-md-4 -->
 
             <div class="col-md-4">
@@ -88,7 +88,7 @@
         <div ng-repeat="post in mostRecentPostList">
             <h3><small>{{post.forum}}</small>
                 <br>
-                <a href="#/forum/nosebleeds/{{post.thread_id}}">{{post.thread}}</a></h3>
+                <a href="#/fansview/nosebleeds/thread/{{post.thread_id}}">{{post.thread}}</a></h3>
             <p ng-bind-html="post.post"></p>
 
             <hr>

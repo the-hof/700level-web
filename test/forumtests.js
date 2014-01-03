@@ -150,8 +150,10 @@ describe('Forum', function () {
     it('should return an array of threads', function (done) {
       var forumService = new ForumService();
       var forum = 'The Barrel';
-      forumService.listThreadsByForum(forum, 1, 25, function (err, ThreadList) {
+      forumService.listThreadsByForum(forum, 1, 25, function (err, res) {
         if (err) throw err;
+        var ThreadList = res.docs;
+        expect(res.threadCount).to.be.greaterThan(1);
         expect(ThreadList).to.be.an('array');
         expect(ThreadList).to.not.be.empty();
         expect(ThreadList.length).to.be.greaterThan(1);
