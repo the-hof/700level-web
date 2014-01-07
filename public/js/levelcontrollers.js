@@ -233,23 +233,23 @@ levelControllers.controller('threadReplyCtrl', ['$scope','$routeParams', '$http'
       $http
         .post(api_url, postBody)
         .success(function(data) {
-          var returnTarget = '/forum/' + $scope.forumCode +'/thread/' + $scope.threadId + '/max';
+          var returnTarget = '/fansview/' + $scope.forumCode +'/thread/' + $scope.threadId + '/max';
           $location.path(returnTarget);
         })
     }
 
     $scope.jumpToPage = function(pageNum) {
-      var returnTarget = '/forum/' + $scope.forumCode +'/thread/' + $scope.threadId +'/' + pageNum;
+      var returnTarget = '/fansview/' + $scope.forumCode +'/thread/' + $scope.threadId +'/' + pageNum;
       $location.path(returnTarget);
     }
 
     $scope.nextPage = function() {
-      var returnTarget = '/forum/' + $scope.forumCode +'/thread/' + $scope.threadId +'/' + ($scope.pageNum+1);
+      var returnTarget = '/fansview/' + $scope.forumCode +'/thread/' + $scope.threadId +'/' + ($scope.pageNum+1);
       $location.path(returnTarget);
     }
 
     $scope.prevPage = function() {
-      var returnTarget = '/forum/' + $scope.forumCode +'/thread/' + $scope.threadId +'/' + ($scope.pageNum-1);
+      var returnTarget = '/fansview/' + $scope.forumCode +'/thread/' + $scope.threadId +'/' + ($scope.pageNum-1);
       $location.path(returnTarget);
     }
 
