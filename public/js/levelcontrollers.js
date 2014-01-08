@@ -74,14 +74,16 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
     }
 
     $scope.nextPage = function() {
-      var targetPage = parseInt($scope.pageNum, 10) + 1;
-      var returnTarget = '/fansview/' + $scope.forumCode +'/' + targetPage;
+      var targetPageNum = parseInt($scope.pageNum, 10) + 1;
+      targetPageNum = (targetPageNum>$scope.numPages) ? $scope.numPages : targetPageNum;
+      var returnTarget = '/fansview/' + $scope.forumCode +'/' + targetPageNum;
       $location.path(returnTarget);
     }
 
     $scope.prevPage = function() {
-      var targetPage = parseInt($scope.pageNum, 10) - 1;
-      var returnTarget = '/fansview/' + $scope.forumCode +'/' + targetPage;
+      var targetPageNum = parseInt($scope.pageNum, 10) - 1;
+      targetPageNum = (targetPageNum < 1) ? 1 : targetPageNum;
+      var returnTarget = '/fansview/' + $scope.forumCode +'/' + targetPageNum;
       $location.path(returnTarget);
     }
 
@@ -173,14 +175,16 @@ levelControllers.controller('threadDetailCtrl', ['$scope','$routeParams', '$http
     }
 
     $scope.nextPage = function() {
-      var targetPage = parseInt($scope.pageNum, 10) + 1;
-      var returnTarget = '/fansview/' + $scope.forumCode +'/thread/' + $scope.threadId +'/' + targetPage;
+      var targetPageNum = parseInt($scope.pageNum, 10) + 1;
+      targetPageNum = (targetPageNum>$scope.numPages) ? $scope.numPages : targetPageNum;
+      var returnTarget = '/fansview/' + $scope.forumCode +'/thread/' + $scope.threadId +'/' + targetPageNum;
       $location.path(returnTarget);
     }
 
     $scope.prevPage = function() {
-      var targetPage = parseInt($scope.pageNum, 10) - 1;
-      var returnTarget = '/fansview/' + $scope.forumCode +'/thread/' + $scope.threadId +'/' + targetPage;
+      var targetPageNum = parseInt($scope.pageNum, 10) - 1;
+      targetPageNum = (targetPageNum < 1) ? 1 : targetPageNum;
+      var returnTarget = '/fansview/' + $scope.forumCode +'/thread/' + $scope.threadId +'/' + targetPageNum;
       $location.path(returnTarget);
     }
 
@@ -236,21 +240,6 @@ levelControllers.controller('threadReplyCtrl', ['$scope','$routeParams', '$http'
           var returnTarget = '/fansview/' + $scope.forumCode +'/thread/' + $scope.threadId + '/max';
           $location.path(returnTarget);
         })
-    }
-
-    $scope.jumpToPage = function(pageNum) {
-      var returnTarget = '/fansview/' + $scope.forumCode +'/thread/' + $scope.threadId +'/' + pageNum;
-      $location.path(returnTarget);
-    }
-
-    $scope.nextPage = function() {
-      var returnTarget = '/fansview/' + $scope.forumCode +'/thread/' + $scope.threadId +'/' + ($scope.pageNum+1);
-      $location.path(returnTarget);
-    }
-
-    $scope.prevPage = function() {
-      var returnTarget = '/fansview/' + $scope.forumCode +'/thread/' + $scope.threadId +'/' + ($scope.pageNum-1);
-      $location.path(returnTarget);
     }
 
     function getThreadPage(forum, threadId, pageSize, pageNum, callback) {
