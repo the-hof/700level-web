@@ -9,6 +9,10 @@ levelApp.config(['$routeProvider', '$locationProvider',
 
 
     $routeProvider
+      .when('/fansview/:forumName/thread/create', {
+        templateUrl: 'partials/thread-create.html',
+        controller: 'threadCreateCtrl'
+      })
       .when('/fansview/:forumName/thread/:threadId/reply', {
         templateUrl: 'partials/thread-reply.html',
         controller: 'threadReplyCtrl'

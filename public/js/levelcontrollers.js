@@ -68,6 +68,11 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
       }
     })
 
+    $scope.newThread = function() {
+      var returnTarget = '/fansview/' + $scope.forumCode + '/thread/create';
+      $location.path(returnTarget);
+    }
+
     $scope.jumpToPage = function(pageNum) {
       var returnTarget = '/fansview/' + $scope.forumCode +'/' + pageNum;
       $location.path(returnTarget);
@@ -213,6 +218,7 @@ levelControllers.controller('threadReplyCtrl', ['$scope','$routeParams', '$http'
   function($scope, $routeParams, $http, $location) {
     $scope.threadId = $routeParams.threadId;
     $scope.forumCode = $routeParams.forumName;
+    $scope.threadName = '';
 
     getThreadPage($scope.forumCode, $scope.threadId, 1, 1, function(data) {
 
@@ -253,5 +259,34 @@ levelControllers.controller('threadReplyCtrl', ['$scope','$routeParams', '$http'
         $scope.threadName = data.docs[0].thread;
         return callback(data);
       });
+    }
+  }]);
+
+levelControllers.controller('threadCreateCtrl', ['$scope','$routeParams', '$http', '$location',
+  function($scope, $routeParams, $http, $location) {
+    $scope.forumCode = $routeParams.forumName;
+    $scope.threadName = '';
+
+    $scope.cancel = function() {
+      var returnTarget = '/forum/' + $scope.forumCode +'/' + $scope.threadId;
+      $location.path(returnTarget);
+    };
+
+    $scope.talkback = function() {
+      var api_url = 'http://beta.700level.com/v1/forum/thread?callback=JSON_CALLBACK';
+      api_url += '&forum=' + $scope.forumCode;
+
+      var postBody = {
+        post: $scope.post,
+        inputURL: $scope.inputURL,
+        thread: $scope.threadName
+      }
+
+      $http
+        .post(api_url, postBody)
+        .success(function(data) {
+          var returnTarget = '/fansview/' + $scope.forumCode;
+          $location.path(returnTarget);
+        })
     }
   }]);
