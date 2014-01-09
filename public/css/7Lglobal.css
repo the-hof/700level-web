@@ -1,0 +1,28 @@
+body {
+  padding:50px 0px 0px 0px;
+  color:#5a5a5a; /* Overall Font color */
+}
+.content-container {
+  padding:20px 0px 20px 0px;
+  text-align:center;
+  /*background-color:#CCC;*/
+  width:100%;
+  height:auto;
+}
+
+.content-container-left {
+  padding:0px 0px 20px 0px;
+  text-align:left;
+  /*background-color:#CCC;*/
+  width:100%;
+  height:auto;
+}
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Pad the edges of the mobile views a bit */
+.marketing {
+  padding-left:15px;
+  padding-right:15px;
+}
