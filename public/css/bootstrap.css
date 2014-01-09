@@ -2652,26 +2652,26 @@ input[type="button"].btn-block {
 
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('fonts/glyphicons-halflings-regular.eot');
-  src: url('fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('fonts/glyphicons-halflings-regular.woff') format('woff'), url('fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('/fonts/glyphicons-halflings-regular.eot');
+  src: url('/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('/fonts/glyphicons-halflings-regular.woff') format('woff'), url('/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
 @font-face {
 font-family: 'Aller-Regular';
-src: url('fonts/aller-regular.eot'); 
-src: url('fonts/aller-regular.eot?#iefix') format('embedded-opentype'),
-    url('fonts/aller-regular.svg#svgAller-Regular') format('svg'),
-    url('fonts/aller-regular.woff') format('woff'),
-    url('fonts/aller-regular.ttf')  format('truetype');
+src: url('/fonts/aller-regular.eot'); 
+src: url('/fonts/aller-regular.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/aller-regular.svg#svgAller-Regular') format('svg'),
+    url('/fonts/aller-regular.woff') format('woff'),
+    url('/fonts/aller-regular.ttf')  format('truetype');
 }
 
 @font-face {
 font-family: 'Aller-Bold';
-src: url('fonts/aller-bold.eot'); 
-src: url('fonts/aller-bold.eot?#iefix') format('embedded-opentype'),
-    url('fonts/aller-bold.svg#svgAller-Bold') format('svg'),
-    url('fonts/aller-bold.woff') format('woff'),
-    url('fonts/aller-bold.ttf')  format('truetype');
+src: url('/fonts/aller-bold.eot'); 
+src: url('/fonts/aller-bold.eot?#iefix') format('embedded-opentype'),
+    url('/fonts/aller-bold.svg#svgAller-Bold') format('svg'),
+    url('/fonts/aller-bold.woff') format('woff'),
+    url('/fonts/aller-bold.ttf')  format('truetype');
 }
 
 .glyphicon {
