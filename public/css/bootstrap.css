@@ -5266,7 +5266,7 @@ a.list-group-item.active > .badge,
 .jumbotron {
   padding:0px;
   margin:0px;
-  background-image:url(images/static-banner-01.jpg);
+  background-image:url(/images/static-banner-01.jpg);
   background-repeat:no-repeat;
   /* font-size: 21px;
   font-weight: 200;
@@ -5279,7 +5279,7 @@ a.list-group-item.active > .badge,
 .jumbotron2 {
   padding:0px;
   margin:0px;
-  background-image:url(images/static-banner-02.jpg);
+  background-image:url(/images/static-banner-02.jpg);
   background-repeat:no-repeat;
   /* font-size: 21px;
   font-weight: 200;
@@ -5293,7 +5293,7 @@ a.list-group-item.active > .badge,
   padding:30px 0px 30px 0px;
   margin:0px;
   background-color:#004a53;
-  background-image:url(images/bkgd-tile_footer.gif);
+  background-image:url(/images/bkgd-tile_footer.gif);
   background-repeat:repeat-x;
   min-height:200px;
   text-align:center;
