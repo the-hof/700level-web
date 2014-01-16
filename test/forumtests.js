@@ -62,13 +62,19 @@ describe('Forum', function () {
 
     user.deleteUserName('forumtest_user', function (err) {
       if (err) console.log(err);
-      user.createNew('forumtest_user', 'forumtest_userpwd', 'test.email@700level.com', function (err) {
+      user.deleteUserName('forumtest_user2', function (err) {
         if (err) console.log(err);
-        user.getByUsernamePassword('forumtest_user', 'forumtest_userpwd', function (err, SelectedUser) {
+        user.createNew('forumtest_user', 'forumtest_userpwd', 'test.email@700level.com', function (err) {
           if (err) console.log(err);
-          user.setAdmin(SelectedUser.id, function (err) {
+          user.getByUsernamePassword('forumtest_user', 'forumtest_userpwd', function (err, SelectedUser) {
             if (err) console.log(err);
-            addRecords(err, 11, done);
+            user.setAdmin(SelectedUser.id, function (err) {
+              if (err) console.log(err);
+              user.createNew('forumtest_user2', 'forumtest_userpwd', 'test.email@700level.com', function (err) {
+                if (err) console.log(err);
+                addRecords(err, 11, done);
+              });
+            });
           });
         });
       });
@@ -119,8 +125,37 @@ describe('Forum', function () {
       var post = 'test post';
       var ip = '127.0.0.1';
 
-      forumService.savePost('forumtest_user', 'forumtest_userpwd', forum, thread, null, post, ip, done);
+      forumService.savePost('forumtest_user', 'forumtest_userpwd', forum, thread, null, post, ip,
+        function (err, thread_id) {
+          if (err) throw err;
+          forumService.getThreadAuthorByThreadId(thread_id, function (err, thread_author) {
+            expect(thread_author).to.equal('forumtest_user');
+          })
+          done();
+        });
     });
+
+    it('should keep the original poster as the thread_author when another users replies', function (done) {
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      var thread = 'Auto test thread reply';
+      var post1 = 'test post';
+      var post2 = 'test reply'
+      var ip = '127.0.0.1';
+
+      forumService.savePost('forumtest_user2', 'forumtest_userpwd', forum, thread, null, post1, ip,
+        function (err, thread_id) {
+          if (err) throw err;
+          forumService.savePost('forumtest_user', 'forumtest_userpwd', forum, thread, thread_id, post2, ip,
+            function (err, thread_id) {
+              if (err) throw err;
+              forumService.getThreadAuthorByThreadId(thread_id, function (err, thread_author) {
+                expect(thread_author).to.equal('forumtest_user2');
+                done();
+              })
+            });
+        });
+    })
 
     it('should not allow saves by invalid username & password combos', function (done) {
       var forumService = new ForumService();
@@ -129,7 +164,7 @@ describe('Forum', function () {
       var post = 'should never see this';
       var ip = '127.0.0.1';
 
-      forumService.savePost(uuid.v4(), uuid.v4(), forum, thread, null, post, ip, function (err) {
+      forumService.savePost(uuid.v4(), uuid.v4(), forum, thread, null, post, ip, function (err, thread_id) {
         if (err && (err != 'username and password not authorized to post')) throw err;
         done();
       })
