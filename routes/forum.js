@@ -112,12 +112,20 @@ exports.addNewPost = function (req, res) {
   var forumService = new ForumService();
   var forum = getSolrForumFromQueryString(req.query.forum);
   var threadId = getSolrThreadIdFromQueryString(req.query.threadId);
+  var inputURL = req.body.inputURL;
+
+  var postText = req.body.post;
+
+  if ((inputURL) && (inputURL.length > 5)) {
+    postText += '\n\n<a target="_blank" href="' + inputURL + '">yo, click it</a>';
+  }
+
   if (req.isAuthenticated()) {
     var threadSubject = String(req.body.thread);
     if (threadSubject.length > 120) {
       threadSubject = threadSubject.substring(0,120);
     }
-    forumService.savePost(req.user.username, '', forum, threadSubject, threadId, req.body.post, '', function(err) {
+    forumService.savePost(req.user.username, '', forum, threadSubject, threadId, postText, '', function(err) {
       if (err) throw err;
       res.send(200);
     })
