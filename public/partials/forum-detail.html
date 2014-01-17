@@ -92,7 +92,9 @@
                     {{thread.count}}
                 </td>
                 <td>
-                    <a href="#/fansview/{{forumCode}}/thread/{{thread.thread_id}}">{{thread.last_modified}}</a>
+                    <a href="#/fansview/{{forumCode}}/thread/{{thread.thread_id}}">
+                        {{thread.last_modified | date:'yyyy-MM-dd hh:mm:ss'}}
+                    </a>
                 </td>
             </tr>
         </table>
