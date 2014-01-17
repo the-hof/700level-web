@@ -110,6 +110,8 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
         case 'nosebleeds': ret = 'Nosebleeds'; break;
         case 'concourse': ret = 'Concourse'; break;
         case 'parkinglot': ret = 'Parking Lot'; break;
+        case 'ownersbox': ret = 'Owners Box'; break;
+        case 'tailgate': ret = 'Tailgate'; break;
       }
       return ret;
     }
@@ -209,6 +211,8 @@ levelControllers.controller('threadDetailCtrl', ['$scope','$routeParams', '$http
         case 'nosebleeds': ret = 'Nosebleeds'; break;
         case 'concourse': ret = 'Concourse'; break;
         case 'parkinglot': ret = 'Parking Lot'; break;
+        case 'ownersbox': ret = 'Owners Box'; break;
+        case 'tailgate': ret = 'Tailgate'; break;
       }
       return ret;
     }

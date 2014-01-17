@@ -37,6 +37,8 @@ function getSolrForumFromQueryString(url_forum) {
       case 'thebleeds': solr_forum = 'Nose Bleeds'; break;
       case 'concourse': solr_forum = 'Concourse'; break;
       case 'parkinglot': solr_forum = 'Parking Lot'; break;
+      case 'ownersbox': solr_forum = 'Owners Box'; break;
+      case 'tailgate': solr_forum = 'Tailgate'; break;
       default: solr_forum = url_forum;
     }
   }
