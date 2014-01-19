@@ -7,7 +7,7 @@ levelControllers.controller('homeCtrl', ['$scope', '$http',
     $http.jsonp(api_url).success(function(data) {
       $scope.mostRecentPostList = data;
     });
-  }]);
+  }]); //end homeCtrl
 
 levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http', '$location',
   function($scope, $routeParams, $http, $location) {
@@ -60,7 +60,6 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
           }
         }
       }
-
 
       // if we request the last page in the thread, set that now
       if ($routeParams.forumPage === 'max') {
@@ -116,7 +115,7 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
       return ret;
     }
 
-  }]);
+  }]);  //end forumDetailCtrl
 
 levelControllers.controller('threadDetailCtrl', ['$scope','$routeParams', '$http', '$location',
   function($scope, $routeParams, $http, $location) {
