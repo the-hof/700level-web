@@ -87,7 +87,6 @@ angular.module('levelDirectives', ['ui.bootstrap'])
             $http
               .jsonp(logoutUrl)
               .success(function (data) {
-                alert('logging out');
                   $scope.username = 'LOGIN';
                   $scope.loginClass = "btn btn-primary btn-sm";
                   $scope.isLoggedIn = false;

@@ -297,10 +297,27 @@ levelControllers.controller('threadReplyCtrl', ['$scope','$routeParams', '$http'
 
 levelControllers.controller('threadCreateCtrl', ['$scope','$routeParams', '$http', '$location',
   function($scope, $routeParams, $http, $location) {
+    var userInfoUrl = 'http://beta.700level.com/loggedin?callback=JSON_CALLBACK';
+
     $scope.forumCode = $routeParams.forumName;
     $scope.threadName = '';
 
     $scope.forumName = TranslateForumName($routeParams.forumName);
+
+    $scope.isLoggedIn = false;
+
+    $http
+      .jsonp(userInfoUrl)
+      .success(function (data) {
+        if (data.username == 'anonymous') {
+          $scope.isLoggedIn = false;
+        } else {
+          $scope.isLoggedIn = true;
+        }
+      })
+      .error(function (err) {
+        $scope.isLoggedIn = false;
+      });
 
     $scope.cancel = function() {
       var returnTarget = '/forum/' + $scope.forumCode +'/' + $scope.threadId;
