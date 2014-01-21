@@ -223,6 +223,8 @@ levelControllers.controller('threadReplyCtrl', ['$scope','$routeParams', '$http'
     $scope.forumCode = $routeParams.forumName;
     $scope.threadName = '';
 
+    $scope.forumName = TranslateForumName($routeParams.forumName);
+
     getThreadPage($scope.forumCode, $scope.threadId, 1, 1, function(data) {
 
     })
@@ -251,6 +253,18 @@ levelControllers.controller('threadReplyCtrl', ['$scope','$routeParams', '$http'
         })
     }
 
+    function TranslateForumName(short_name) {
+      var ret = '';
+      switch (short_name) {
+        case 'nosebleeds': ret = 'Nosebleeds'; break;
+        case 'concourse': ret = 'Concourse'; break;
+        case 'parkinglot': ret = 'Parking Lot'; break;
+        case 'ownersbox': ret = 'Owners Box'; break;
+        case 'tailgate': ret = 'Tailgate'; break;
+      }
+      return ret;
+    }
+
     function getThreadPage(forum, threadId, pageSize, pageNum, callback) {
       var api_url = 'http://beta.700level.com/v1/forum/thread?callback=JSON_CALLBACK';
       api_url += '&forum=' + forum;
@@ -269,6 +283,8 @@ levelControllers.controller('threadCreateCtrl', ['$scope','$routeParams', '$http
   function($scope, $routeParams, $http, $location) {
     $scope.forumCode = $routeParams.forumName;
     $scope.threadName = '';
+
+    $scope.forumName = TranslateForumName($routeParams.forumName);
 
     $scope.cancel = function() {
       var returnTarget = '/forum/' + $scope.forumCode +'/' + $scope.threadId;
@@ -291,5 +307,17 @@ levelControllers.controller('threadCreateCtrl', ['$scope','$routeParams', '$http
           var returnTarget = '/fansview/' + $scope.forumCode;
           $location.path(returnTarget);
         })
+    }
+
+    function TranslateForumName(short_name) {
+      var ret = '';
+      switch (short_name) {
+        case 'nosebleeds': ret = 'Nosebleeds'; break;
+        case 'concourse': ret = 'Concourse'; break;
+        case 'parkinglot': ret = 'Parking Lot'; break;
+        case 'ownersbox': ret = 'Owners Box'; break;
+        case 'tailgate': ret = 'Tailgate'; break;
+      }
+      return ret;
     }
   }]);
