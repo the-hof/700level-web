@@ -2,10 +2,12 @@ angular.module('levelDirectives', ['ui.bootstrap'])
   .directive('levelLogin', function () {
 
     var userInfoUrl = 'http://beta.700level.com/loggedin?callback=JSON_CALLBACK';
+    var logoutUrl = 'http://beta.700level.com/logout?callback=JSON_CALLBACK';
     var loginUrl = 'http://beta.700level.com/login?callback=JSON_CALLBACK';
 
-    var LoginCtrl = function ($scope, $modalInstance, $http, user) {
+    var LoginCtrl = function ($scope, $modalInstance, $http, user, $location) {
       $scope.user = user;
+      $scope.isLoggedIn = false;
 
       $scope.doLogin = function (username, password) {
         // do login here
@@ -21,8 +23,12 @@ angular.module('levelDirectives', ['ui.bootstrap'])
           .success(function (data) {
             $scope.user.name = data.username;
             $modalInstance.close($scope.user);
+            $scope.isLoggedIn = true;
+            var returnTarget = $location.search();
+            $location.search({login:1});
           })
           .error(function (data) {
+            $scope.isLoggedIn = false;
             $scope.user.isInvalid = true;
             $scope.user.message = 'invalid username or password';
           })
@@ -42,7 +48,7 @@ angular.module('levelDirectives', ['ui.bootstrap'])
 
       },
       replace: true,
-      controller: function ($scope, $http, $modal) {
+      controller: function ($scope, $http, $modal, $location) {
 
         $http
           .jsonp(userInfoUrl)
@@ -57,24 +63,44 @@ angular.module('levelDirectives', ['ui.bootstrap'])
           })
           .error(function (err) {
             $scope.username == 'LOGIN';
-            $scope.loginClass = "but btn-primary btn-sm";
+            $scope.loginClass = "btn btn-primary btn-sm";
           });
 
         $scope.openLoginModal = function () {
-          var modalInstance = $modal.open({
-            templateUrl: 'partials/modal-login.html?v=1',
-            controller: LoginCtrl,
-            resolve: {
-              user: function () {
-                return { username: $scope.user };
+          if (!$scope.isLoggedIn) { //log in
+            var modalInstance = $modal.open({
+              templateUrl: 'partials/modal-login.html?v=1',
+              controller: LoginCtrl,
+              resolve: {
+                user: function () {
+                  return { username: $scope.user };
+                }
               }
-            }
-          });
+            });
 
-          modalInstance.result.then(function (user) {
-            $scope.username = 'Logout: ' + user.name;
-            $scope.loginClass = "btn btn-primary btn-sm";
-          });
+            modalInstance.result.then(function (user) {
+              $scope.username = 'Logout: ' + user.name;
+              $scope.isLoggedIn = true;
+              $scope.loginClass = "btn btn-primary btn-sm";
+            });
+          } else { // log out
+            $http
+              .jsonp(logoutUrl)
+              .success(function (data) {
+                alert('logging out');
+                  $scope.username = 'LOGIN';
+                  $scope.loginClass = "btn btn-primary btn-sm";
+                  $scope.isLoggedIn = false;
+                  $location.search({logout:1});
+
+              })
+              .error(function (err) {
+                $scope.username == 'LOGIN';
+                $scope.loginClass = "btn btn-primary btn-sm";
+                $scope.isLoggedIn = false;
+              });
+          }
+
         };
 
         $scope.cancel = function () {

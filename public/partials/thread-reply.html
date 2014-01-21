@@ -17,6 +17,10 @@
 
         <hr>
 
+        <p ng-if="(isLoggedIn == false)" class="text-danger">
+            <b>You must be logged in to post</b>
+        </p>
+        <br ng-if="(isLoggedIn == false)">
         <form class="form-horizontal" role="form">
             <!--
             <div class="form-group">

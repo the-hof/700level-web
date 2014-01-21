@@ -92,8 +92,9 @@ exports.login = function(req, res) {
 };
 
 exports.logout = function(req, res){
+  res.setHeader('Content-Type', 'application/json');
   req.logOut();
-  res.send(200);
+  res.send(wrapResponseInCallback(req.query.callback, JSON.stringify({status:'OK'})));
 };
 
 exports.loggedin = function(req, res) {
