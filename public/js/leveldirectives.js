@@ -21,10 +21,8 @@ angular.module('levelDirectives', ['ui.bootstrap'])
           }
         })
           .success(function (data) {
-            $scope.user.name = data.username;
             $modalInstance.close($scope.user);
             $scope.isLoggedIn = true;
-            var returnTarget = $location.search();
             $location.search({login:1});
           })
           .error(function (data) {
@@ -50,21 +48,26 @@ angular.module('levelDirectives', ['ui.bootstrap'])
       replace: true,
       controller: function ($scope, $http, $modal, $location) {
 
-        $http
-          .jsonp(userInfoUrl)
-          .success(function (data) {
-            if (data.username == 'anonymous') {
-              $scope.username = 'LOGIN';
+        function setLoginStatus() {
+          $http
+            .jsonp(userInfoUrl)
+            .success(function (data) {
+              if (data.username == 'anonymous') {
+                $scope.username = 'LOGIN';
+                $scope.loginClass = "btn btn-primary btn-sm";
+              } else {
+                $scope.username = 'Logout: ' + data.username;
+                $scope.loginClass = "btn btn-primary btn-sm";
+                $scope.isLoggedIn = true;
+              }
+            })
+            .error(function (err) {
+              $scope.username == 'LOGIN';
               $scope.loginClass = "btn btn-primary btn-sm";
-            } else {
-              $scope.username = 'Logout: ' + data.username;
-              $scope.loginClass = "btn btn-primary btn-sm";
-            }
-          })
-          .error(function (err) {
-            $scope.username == 'LOGIN';
-            $scope.loginClass = "btn btn-primary btn-sm";
-          });
+            });
+        }
+
+        setLoginStatus();
 
         $scope.openLoginModal = function () {
           if (!$scope.isLoggedIn) { //log in
@@ -79,9 +82,8 @@ angular.module('levelDirectives', ['ui.bootstrap'])
             });
 
             modalInstance.result.then(function (user) {
-              $scope.username = 'Logout: ' + user.name;
-              $scope.isLoggedIn = true;
-              $scope.loginClass = "btn btn-primary btn-sm";
+              setLoginStatus();
+              $location.search({login:2});
             });
           } else { // log out
             $http
