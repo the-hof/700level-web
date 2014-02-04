@@ -68,6 +68,7 @@ app.put('/logout', user.logout);
 
 //API routes
 app.put('/v1/user/', user.createNew);
+app.post('/v1/user/', user.createNew);
 app.get('/v1/user/', user.createNew);
 app.get('/v1/user/validate', user.validate);
 app.get('/v1/user/set_first_admin', user.setFirstAdmin);

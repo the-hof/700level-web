@@ -105,8 +105,10 @@ describe('Forum', function () {
                 if (err) throw err;
                 console.log('deleting forum user');
                 user.deleteUserName('forumtest_user', function (err) {
-                  if (err) console.log(err);
-                  done();
+                  user.deleteUserName('forumtest_user2', function (err) {
+                    if (err) console.log(err);
+                    done();
+                  })
                 })
               })
             })

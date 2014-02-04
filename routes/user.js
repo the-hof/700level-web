@@ -65,7 +65,7 @@ exports.createNew = function (req, res) {
   user.createNew(username, unhashed_password, email, function (err) {
     var returnCode = 'OK';
     if (err) returnCode = err.message;
-    res.send(returnCode);
+    res.send(wrapResponseInCallback(req.query.callback, JSON.stringify({status:returnCode})));
   });
 
 }

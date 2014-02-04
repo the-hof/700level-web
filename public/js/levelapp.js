@@ -33,6 +33,10 @@ levelApp.config(['$routeProvider', '$locationProvider',
         templateUrl: 'partials/home.html',
         controller: 'homeCtrl'
       })
+      .when('/register', {
+        templateUrl: 'partials/register.html',
+        controller: 'registerCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

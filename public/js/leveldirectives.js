@@ -1,11 +1,11 @@
 angular.module('levelDirectives', ['ui.bootstrap'])
   .directive('levelLogin', function () {
 
-    var userInfoUrl = 'http://beta.700level.com/loggedin?callback=JSON_CALLBACK';
-    var logoutUrl = 'http://beta.700level.com/logout?callback=JSON_CALLBACK';
-    var loginUrl = 'http://beta.700level.com/login?callback=JSON_CALLBACK';
+    var userInfoUrl = '/loggedin?callback=JSON_CALLBACK';
+    var logoutUrl = '/logout?callback=JSON_CALLBACK';
+    var loginUrl = '/login?callback=JSON_CALLBACK';
 
-    var LoginCtrl = function ($scope, $modalInstance, $http, user, $location) {
+    var LoginCtrl = function ($scope, $modalInstance, $http, user, $location, $rootScope) {
       $scope.user = user;
       $scope.isLoggedIn = false;
 
@@ -68,6 +68,29 @@ angular.module('levelDirectives', ['ui.bootstrap'])
         }
 
         setLoginStatus();
+
+        // catch 'loginEvent' messages broadcast from outside
+        // data is an array:  [username,password]
+        $scope.$on('loginEvent', function(event, data) {
+
+          $http({
+            url: loginUrl,
+            method: 'JSONP',
+            params: {
+              username: data[0],
+              password: data[1]
+            }
+          })
+            .success(function (data) {
+              $scope.isLoggedIn = true;
+              setLoginStatus();
+            })
+            .error(function (data) {
+              $scope.isLoggedIn = false;
+              $scope.user.isInvalid = true;
+              $scope.user.message = 'invalid username or password';
+            });
+        });
 
         $scope.openLoginModal = function () {
           if (!$scope.isLoggedIn) { //log in
