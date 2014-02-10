@@ -32,6 +32,12 @@ angular.module('levelDirectives', ['ui.bootstrap'])
           })
       };
 
+      $scope.signup = function() {
+        $modalInstance.close(null);
+        $scope.isLoggedIn = false;
+        $location.path('/');
+      }
+
       $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
       };
@@ -106,7 +112,11 @@ angular.module('levelDirectives', ['ui.bootstrap'])
 
             modalInstance.result.then(function (user) {
               setLoginStatus();
-              $location.search({login:2});
+              if (user) {
+                $location.search({login:2});
+              } else {
+                $location.path('/register');
+              }
             });
           } else { // log out
             $http

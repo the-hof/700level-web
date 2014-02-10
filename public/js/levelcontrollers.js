@@ -250,7 +250,6 @@ levelControllers.controller('registerCtrl', ['$scope', '$routeParams', '$http', 
 
     $scope.server_response = '';
 
-
     $scope.registerUser = function () {
       $scope.server_response = '';
       if (!$scope.new_email) {
