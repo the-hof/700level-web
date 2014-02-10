@@ -37,6 +37,10 @@ levelApp.config(['$routeProvider', '$locationProvider',
         templateUrl: 'partials/register.html',
         controller: 'registerCtrl'
       })
+      .when('/contact', {
+        templateUrl: 'partials/contact.html',
+        controller: 'contactCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

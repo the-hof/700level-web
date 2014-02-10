@@ -283,8 +283,13 @@ levelControllers.controller('registerCtrl', ['$scope', '$routeParams', '$http', 
         $http
           .put(registrationURL, postBody)
           .success(function (data) {
-            $rootScope.$broadcast('loginEvent', [$scope.new_username,$scope.new_password]);
-            $location.path('/');
+            var status = data.status;
+            if (status == "OK") {
+              $rootScope.$broadcast('loginEvent', [$scope.new_username,$scope.new_password]);
+              $location.path('/');
+            } else {
+              $scope.server_response += status;
+            }
           })
       }
     }
@@ -378,6 +383,7 @@ levelControllers.controller('threadReplyCtrl', ['$scope', '$routeParams', '$http
     }
   }]);
 
+
 levelControllers.controller('threadCreateCtrl', ['$scope', '$routeParams', '$http', '$location',
   function ($scope, $routeParams, $http, $location) {
     var userInfoUrl = '/loggedin?callback=JSON_CALLBACK';
@@ -447,3 +453,24 @@ levelControllers.controller('threadCreateCtrl', ['$scope', '$routeParams', '$htt
       return ret;
     }
   }]);
+
+
+levelControllers.controller('contactCtrl', ['$scope', '$routeParams', '$http', '$location',
+  function ($scope, $routeParams, $http, $location) {
+    var contact_api_url = '/v1/contact'
+    $scope.from = '';
+    $scope.email = '';
+    $scope.subject = '';
+    $scope.message = '';
+
+    $scope.sendMessage = function () {
+      var postBody = {
+        from: $scope.from,
+        email: $scope.email,
+        subject: $scope.subject,
+        message: $scope.message
+      }
+
+    }
+  }
+]);

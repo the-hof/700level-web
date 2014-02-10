@@ -62,12 +62,21 @@ exports.createNew = function (req, res) {
   var unhashed_password = getSolrUserNameFromPOST(req.param('password'));
   var email = getSolrUserNameFromPOST(req.param('email_address'));
   var user = new UserService();
-  user.createNew(username, unhashed_password, email, function (err) {
-    var returnCode = 'OK';
-    if (err) returnCode = err.message;
-    res.send(wrapResponseInCallback(req.query.callback, JSON.stringify({status:returnCode})));
-  });
+  
+  res.setHeader('Content-Type', 'application/json');
 
+  if (username) {
+    user.createNew(username, unhashed_password, email, function (err) {
+      var returnCode = 'OK';
+      if (err) returnCode = err.message;
+
+      res.send(req.query.callback, JSON.stringify({status:returnCode})); //not called by jsonp, so don't wrap callback
+    });
+  } else  {
+    var returnCode = 'Screen Name can\'t be blank';
+
+    res.send(req.query.callback, JSON.stringify({status:returnCode})); //not called by jsonp, so don't wrap callback
+  }
 }
 
 exports.validate = function (req, res) {
