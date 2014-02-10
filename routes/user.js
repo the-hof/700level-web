@@ -62,7 +62,7 @@ exports.createNew = function (req, res) {
   var unhashed_password = getSolrUserNameFromPOST(req.param('password'));
   var email = getSolrUserNameFromPOST(req.param('email_address'));
   var user = new UserService();
-  
+
   res.setHeader('Content-Type', 'application/json');
 
   if (username) {
@@ -70,12 +70,12 @@ exports.createNew = function (req, res) {
       var returnCode = 'OK';
       if (err) returnCode = err.message;
 
-      res.send(req.query.callback, JSON.stringify({status:returnCode})); //not called by jsonp, so don't wrap callback
+      res.send(JSON.stringify({status:returnCode})); //not called by jsonp, so don't wrap callback
     });
   } else  {
     var returnCode = 'Screen Name can\'t be blank';
 
-    res.send(req.query.callback, JSON.stringify({status:returnCode})); //not called by jsonp, so don't wrap callback
+    res.send(JSON.stringify({status:returnCode})); //not called by jsonp, so don't wrap callback
   }
 }
 

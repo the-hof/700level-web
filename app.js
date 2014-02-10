@@ -2,6 +2,7 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , forum = require('./routes/forum')
+  , contact = require('./routes/contact')
   , http = require('http')
   , path = require('path');
 
@@ -66,17 +67,23 @@ app.get('/logout', user.logout);
 app.post('/logout', user.logout);
 app.put('/logout', user.logout);
 
-//API routes
+//User API routes
 app.put('/v1/user/', user.createNew);
 app.post('/v1/user/', user.createNew);
 app.get('/v1/user/', user.createNew);
 app.get('/v1/user/validate', user.validate);
 app.get('/v1/user/set_first_admin', user.setFirstAdmin);
+
+//Forum API routes
 app.get('/v1/forum/most_recent', forum.mostRecent);
 app.get('/v1/forum/thread', forum.listPostsByThread);
 app.post('/v1/forum/thread', forum.addNewPost);
 app.put('/v1/forum/thread', forum.addNewPost);
 app.get('/v1/forum', forum.listThreadsByForum);
+
+//Contact API routes
+app.put('/v1/contact', contact.sendMessage);
+app.post('/v1/contact', contact.sendMessage);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
