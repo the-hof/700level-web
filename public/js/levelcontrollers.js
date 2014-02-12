@@ -95,7 +95,7 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
         searchQuery = searchTerm.replace(" ", "+");
 
         var returnTarget = '/search';
-        $location.path(returnTarget + '&q=' + searchQuery);
+        $location.path(returnTarget + '/' + searchQuery);
       }
 
 
