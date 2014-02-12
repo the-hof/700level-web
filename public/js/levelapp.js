@@ -45,6 +45,10 @@ levelApp.config(['$routeProvider', '$locationProvider',
         templateUrl: 'partials/about.html',
         controller: 'homeCtrl'
       })
+      .when('/search/:searchQuery', {
+        templateUrl: 'partials/search.html',
+        controller: 'searchCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

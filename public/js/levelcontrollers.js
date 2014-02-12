@@ -1,5 +1,21 @@
 var levelControllers = angular.module('levelControllers', ['ngSanitize']);
 
+levelControllers.controller('searchCtrl', ['$scope', '$http', '$routeParams',
+  function ($scope, $http, $routeParams) {
+    var api_url = '/v1/forum/search?callback=JSON_CALLBACK';
+
+    var searchQuery = $routeParams.searchQuery;
+
+    if (searchQuery) {
+      var search_url = api_url + '&q=' + searchQuery;
+      $http.jsonp(search_url).success(function (data) {
+        $scope.searchResults = data;
+      });
+    }
+
+
+  }]); //end searchCtrl
+
 levelControllers.controller('homeCtrl', ['$scope', '$http',
   function ($scope, $http) {
     var api_url = '/v1/forum/most_recent?callback=JSON_CALLBACK';
@@ -17,6 +33,8 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
 
     $scope.forumCode = $routeParams.forumName;
     $scope.forumName = TranslateForumName($routeParams.forumName);
+
+    $scope.searchTerm = '';
 
     //check for paging
     if ($routeParams.forumPage) {
@@ -66,6 +84,22 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
         $scope.jumpToPage($scope.numPages);
       }
     })
+
+
+
+    $scope.search = function () {
+      var searchTerm = $scope.searchTerm;
+      var searchQuery = '';
+
+      if (searchTerm) {
+        searchQuery = searchTerm.replace(" ", "+");
+
+        var returnTarget = '/search';
+        $location.path(returnTarget + '&q=' + searchQuery);
+      }
+
+
+    }
 
     $scope.newThread = function () {
       var returnTarget = '/fansview/' + $scope.forumCode + '/thread/create';

@@ -23,16 +23,28 @@
                 <div class="input-group">
 
                     <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">SEARCH <span class="caret"></span></button>
-                        <ul class="dropdown-menu">
+                        <!--
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                ng-click="return false;">
+                            SEARCH <span class="caret"></span>
+                        </button>
+
+                        <ul class="dropdown-menu" ng-model="searchForum">
                             <li><a href="#">Nosebleeds</a></li>
                             <li><a href="#">Concourse</a></li>
                             <li><a href="#">Tailgate</a></li>
                             <li><a href="#">Owner's Box</a></li>
                         </ul>
+                        -->
+                        SEARCH:&nbsp;&nbsp;
+
                     </div>
 
-                    <input type="text" class="form-control"><span class="input-group-btn"><button class="btn btn-default" type="button">FIND</button></span>
+
+                    <input type="text" class="form-control" ng-model="searchTerm">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="search()">FIND</button>
+                    </span>
                 </div>
 
             </div>

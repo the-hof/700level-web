@@ -55,6 +55,22 @@ function getSolrThreadIdFromQueryString(url_threadid) {
   return '';
 }
 
+function getQueryTermFromQueryString(url_queryterm) {
+  if (url_queryterm) return url_queryterm;
+  return '';
+}
+
+exports.search = function(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  var forumService = new ForumService();
+  var q = getQueryTermFromQueryString(req.query.q);
+  console.log(q);
+  forumService.search(q, 25, 1, function (err, postList) {
+    if (err) throw err;
+    res.end(wrapResponseInCallback(req.query.callback, JSON.stringify(postList, stringifyPosts, 2)));
+  })
+}
+
 exports.listThreadsByForum = function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   var forumService = new ForumService();

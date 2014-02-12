@@ -75,11 +75,13 @@ app.get('/v1/user/validate', user.validate);
 app.get('/v1/user/set_first_admin', user.setFirstAdmin);
 
 //Forum API routes
+app.get('/v1/forum/search', forum.search);
 app.get('/v1/forum/most_recent', forum.mostRecent);
 app.get('/v1/forum/thread', forum.listPostsByThread);
 app.post('/v1/forum/thread', forum.addNewPost);
 app.put('/v1/forum/thread', forum.addNewPost);
 app.get('/v1/forum', forum.listThreadsByForum);
+
 
 //Contact API routes
 app.put('/v1/contact', contact.sendMessage);

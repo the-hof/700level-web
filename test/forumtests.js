@@ -368,6 +368,19 @@ describe('Forum', function () {
     });
   })
 
+  describe('#search', function() {
+    it('should return a list of posts', function(done) {
+      var forumService = new ForumService();
+      var forum = 'The Barrel';
+      forumService.search('rocky vi', 25, 1, function (err, PostList) {
+        if (err) throw err;
+        expect(PostList.length).to.equal(25);
+
+        done();
+      })
+    })
+  })
+
   describe('#deleteThread', function () {
     it('should not allow a random user to delete a thread', function (done) {
       var forumService = new ForumService();
