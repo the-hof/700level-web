@@ -60,24 +60,26 @@
 
     <h2>{{forumName}}</h2>
 
-    <button type="button" class="btn btn-default" ng-click="newThread()">Create new thread</button>
-    <br/>
-    
-    <div align="center">
-        <ul class="pagination">
-            <li><a ng-click="jumpToPage(1)">&laquo; First</a></li>
-            <li><a ng-click="prevPage();">&laquo; Prev</a></li>
-            <li ng-repeat="page in pageList">
-                <a ng-click="jumpToPage(pageList[$index]);" ng-class="((pageList[$index] === pageNum)?'bold':'')">
-                    {{pageList[$index]}}
-                </a>
-            </li>
-            <li><a ng-click="nextPage();">Next &raquo;</a></li>
-            <li><a ng-click="jumpToPage('max');">Last &raquo;</a></li>
-        </ul>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pull-left">
+                <button type="button" class="btn btn-default" ng-click="newThread()">Create new thread</button>
+            </div>
+            <div class="pull-right">
+                <ul class="pagination">
+                    <li><a ng-click="jumpToPage(1)">&laquo; First</a></li>
+                    <li><a ng-click="prevPage();">&laquo; Prev</a></li>
+                    <li ng-repeat="page in pageList">
+                        <a ng-click="jumpToPage(pageList[$index]);" ng-class="((pageList[$index] === pageNum)?'bold':'')">
+                            {{pageList[$index]}}
+                        </a>
+                    </li>
+                    <li><a ng-click="nextPage();">Next &raquo;</a></li>
+                    <li><a ng-click="jumpToPage('max');">Last &raquo;</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-
-
 
     <div class="table-responsive">
         <table class="table table-striped table-bordered">
@@ -156,6 +158,5 @@
 
     <hr>
     <p><a class="btn btn-default" href="#" role="button">BACK TO TOP</a></p>
-
 
 </div><!-- end content-container -->
