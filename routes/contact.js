@@ -29,6 +29,8 @@ exports.sendMessage = function (req, res) {
       auth: config.contact.auth
     });
 
+    message = message + '\n\nreply-to: ' + email;
+
     // setup e-mail data with unicode symbols
     var mailOptions = {
       from: from + "<" + email + ">", // sender address
