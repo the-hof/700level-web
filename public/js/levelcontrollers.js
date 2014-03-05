@@ -53,6 +53,12 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
 
       $scope.numPages = Math.ceil($scope.threadCount / $scope.pageSize);
       $scope.pageList = [];
+
+      //if we're looking for the last page, set the current page # to the last one
+      if ($routeParams.forumPage === 'max') {
+        $scope.pageNum = $scope.numPages;
+      }
+
       // if we only have 5 pages or less, show them all
       if ($scope.numPages <= 5) {
         for (var i = 0; i < $scope.numPages; i++) {
@@ -77,11 +83,6 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
             $scope.pageList.push(i + 1);
           }
         }
-      }
-
-      // if we request the last page in the thread, set that now
-      if ($routeParams.forumPage === 'max') {
-        $scope.jumpToPage($scope.numPages);
       }
     })
 
@@ -187,6 +188,12 @@ levelControllers.controller('threadDetailCtrl', ['$scope', '$routeParams', '$htt
       $scope.resultCount = data.docs.length;
       $scope.numPages = Math.ceil(data.postCount / $scope.pageSize);
       $scope.pageList = [];
+
+      //if we're looking for the last page, set the current page # to the last one
+      if ($routeParams.threadPage === 'max') {
+        $scope.pageNum = $scope.numPages;
+      }
+
       // if we only have 5 pages or less, show them all
       if ($scope.numPages <= 5) {
         for (var i = 0; i < $scope.numPages; i++) {
@@ -214,9 +221,9 @@ levelControllers.controller('threadDetailCtrl', ['$scope', '$routeParams', '$htt
       }
 
       // if we request the last page in the thread, set that now
-      if ($routeParams.threadPage === 'max') {
-        $scope.jumpToPage($scope.numPages);
-      }
+      //if ($routeParams.threadPage === 'max') {
+      //  $scope.jumpToPage($scope.numPages);
+      //}
     })
 
     $scope.jumpToPage = function (pageNum) {
