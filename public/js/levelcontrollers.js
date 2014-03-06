@@ -172,18 +172,44 @@ levelControllers.controller('threadDetailCtrl', ['$scope', '$routeParams', '$htt
     $scope.forumCode = $routeParams.forumName;
     $scope.forumName = TranslateForumName($routeParams.forumName);
 
+    $scope.requestComplete = true;
+
     //check for paging
     if ($routeParams.threadPage) {
 
       if ($routeParams.threadPage === 'max') {
         $scope.pageNum = '1';
+        $scope.requestComplete = false;
       }
       else {
         $scope.pageNum = parseInt($routeParams.threadPage, 10);
       }
     }
 
-    getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.pageNum, function (data) {
+    getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.pageNum, getThreadPageCallback);
+
+
+
+    $scope.jumpToPage = function (pageNum) {
+      var returnTarget = '/fansview/' + $scope.forumCode + '/thread/' + $scope.threadId + '/' + pageNum;
+      $location.path(returnTarget);
+    }
+
+    $scope.nextPage = function () {
+      var targetPageNum = parseInt($scope.pageNum, 10) + 1;
+      targetPageNum = (targetPageNum > $scope.numPages) ? $scope.numPages : targetPageNum;
+      var returnTarget = '/fansview/' + $scope.forumCode + '/thread/' + $scope.threadId + '/' + targetPageNum;
+      $location.path(returnTarget);
+    }
+
+    $scope.prevPage = function () {
+      var targetPageNum = parseInt($scope.pageNum, 10) - 1;
+      targetPageNum = (targetPageNum < 1) ? 1 : targetPageNum;
+      var returnTarget = '/fansview/' + $scope.forumCode + '/thread/' + $scope.threadId + '/' + targetPageNum;
+      $location.path(returnTarget);
+    }
+
+    function getThreadPageCallback(data) {
       $scope.postList = data.docs;
       $scope.resultCount = data.docs.length;
       $scope.numPages = Math.ceil(data.postCount / $scope.pageSize);
@@ -191,7 +217,11 @@ levelControllers.controller('threadDetailCtrl', ['$scope', '$routeParams', '$htt
 
       //if we're looking for the last page, set the current page # to the last one
       if ($routeParams.threadPage === 'max') {
-        $scope.pageNum = $scope.numPages;
+        if (!$scope.requestComplete) {
+          $scope.pageNum = $scope.numPages;
+          $scope.requestComplete = true;
+          getThreadPage($scope.forumCode, $scope.threadId, $scope.pageSize, $scope.numPages, getThreadPageCallback);
+        }
       }
 
       // if we only have 5 pages or less, show them all
@@ -219,30 +249,6 @@ levelControllers.controller('threadDetailCtrl', ['$scope', '$routeParams', '$htt
           }
         }
       }
-
-      // if we request the last page in the thread, set that now
-      //if ($routeParams.threadPage === 'max') {
-      //  $scope.jumpToPage($scope.numPages);
-      //}
-    })
-
-    $scope.jumpToPage = function (pageNum) {
-      var returnTarget = '/fansview/' + $scope.forumCode + '/thread/' + $scope.threadId + '/' + pageNum;
-      $location.path(returnTarget);
-    }
-
-    $scope.nextPage = function () {
-      var targetPageNum = parseInt($scope.pageNum, 10) + 1;
-      targetPageNum = (targetPageNum > $scope.numPages) ? $scope.numPages : targetPageNum;
-      var returnTarget = '/fansview/' + $scope.forumCode + '/thread/' + $scope.threadId + '/' + targetPageNum;
-      $location.path(returnTarget);
-    }
-
-    $scope.prevPage = function () {
-      var targetPageNum = parseInt($scope.pageNum, 10) - 1;
-      targetPageNum = (targetPageNum < 1) ? 1 : targetPageNum;
-      var returnTarget = '/fansview/' + $scope.forumCode + '/thread/' + $scope.threadId + '/' + targetPageNum;
-      $location.path(returnTarget);
     }
 
     function getThreadPage(forum, threadId, pageSize, pageNum, callback) {
