@@ -11,7 +11,6 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
 
     //check for paging
     if ($routeParams.forumPage) {
-
       if ($routeParams.forumPage === 'max') {
         $scope.pageNum = '1';
       }
