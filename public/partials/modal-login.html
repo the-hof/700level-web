@@ -7,7 +7,7 @@
 <div class="modal-body">
 
 
-    <form class="form-horizontal" role="form">
+    <form class="form-horizontal">
         <div class="form-group">
             <label for="inputUsername" class="col-sm-2 control-label">Username</label>
 
@@ -33,25 +33,26 @@
                 </div>
             </div>
         </div>
-    </form>
 
-    <div class="row">
-        <div class="col-sm-offset-2 col-sm-10">
-            <div class="btn-group">
-                <button type="button" class="btn btn-default" ng-click="signup()">Register</button>
-                <!--
-                <button type="button" class="btn btn-default">Profile Manager</button>
-                <button type="button" class="btn btn-default">Retrieve Password</button>
-                -->
+
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" ng-click="doLogin(username, password)">LOGIN</button>
+                    <!--
+                    <button type="button" class="btn btn-default">Profile Manager</button>
+                    <button type="button" class="btn btn-default">Retrieve Password</button>
+                    -->
+                </div>
             </div>
         </div>
-    </div>
-
+    </form>
 </div>
 <!-- /.modal-body -->
 <div ng-if="user.isInvalid">
     <alert class="alert-error">{{user.message}}</alert>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary" ng-click="doLogin(username, password)">LOGIN</button>
+    <div class="pull-left">Not a registered member?  Join 700level.com now!</div>
+    <button type="button" class="btn btn-default" ng-click="signup()">Register</button>
 </div>
