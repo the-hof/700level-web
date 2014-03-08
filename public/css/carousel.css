@@ -7,42 +7,41 @@
 -------------------------------------------------- */
 
 .carousel {
-  height:500px;
-  margin:0px 0px 20px 0px;
-  background-color:#000000;
+    height:500px;
+    margin:0px 0px 20px 0px;
+    background-color:#000000;
 }
 
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
-  z-index: 10;
+    z-index: 10;
 }
 
 /* Declare heights because of positioning of img element */
 .carousel .item {
-  margin-top: 0px;
-  height:500px;
+    height:500px;
 }
 .carousel-inner > .item > img {
-	position:absolute;
-	top:0;
-	left:0px;
-	width:100%;
-	min-height:500px;
-	background-position:50% 50%;
-  	background-size:cover;
-	
+    position:absolute;
+    top:0;
+    left:0px;
+    width:100%;
+    min-height:500px;
+    background-position:50% 50%;
+    background-size:cover;
+
 }
 
 #static-banner-nosebleeds {
-	position:absolute;
-	top:0;
-	left:0px;
-	width:100%;
-	min-height:500px;
-	background-image:url(/images/static-banner-02.jpg);
-	background-repeat:no-repeat;
-	background-color:#004a53;
-  	background-size:cover;
+    position:absolute;
+    top:0;
+    left:0px;
+    width:100%;
+    min-height:500px;
+    background-image:url(images/static-banner-02.jpg);
+    background-repeat:no-repeat;
+    background-color:#004a53;
+    background-size:cover;
 }
 
 
@@ -50,14 +49,14 @@
 ------------------------- */
 
 .featurette-divider {
-  margin: 80px 0; /* Space out the Bootstrap <hr> more */
+    margin: 80px 0; /* Space out the Bootstrap <hr> more */
 }
 
 /* Thin out the marketing headings */
 .featurette-heading {
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -1px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
 }
 
 
@@ -67,52 +66,52 @@
 
 @media (min-width: 768px) {
 
-  /* Remove the edge padding needed for mobile */
-  .marketing {
-    padding-left: 0;
-    padding-right: 0;
-  }
+    /* Remove the edge padding needed for mobile */
+    .marketing {
+        padding-left: 0;
+        padding-right: 0;
+    }
 
-  /* Navbar positioning foo */
-  .navbar-wrapper {
-    margin-top: 20px;
-  }
-  .navbar-wrapper .container {
-    padding-left:  15px;
-    padding-right: 15px;
-  }
-  .navbar-wrapper .navbar {
-    padding-left:  0;
-    padding-right: 0;
-  }
+    /* Navbar positioning foo */
+    .navbar-wrapper {
+        margin-top: 20px;
+    }
+    .navbar-wrapper .container {
+        padding-left:  15px;
+        padding-right: 15px;
+    }
+    .navbar-wrapper .navbar {
+        padding-left:  0;
+        padding-right: 0;
+    }
 
-  /* The navbar becomes detached from the top, so we round the corners */
-  .navbar-wrapper .navbar {
-    border-radius: 4px;
-  }
+    /* The navbar becomes detached from the top, so we round the corners */
+    .navbar-wrapper .navbar {
+        border-radius: 4px;
+    }
 
-  /* Bump up size of carousel content */
-  .carousel-caption p {
-    font-size: 21px;
-    line-height: 1.4;
-  }
+    /* Bump up size of carousel content */
+    .carousel-caption p {
+        font-size: 21px;
+        line-height: 1.4;
+    }
 
-  .featurette-heading {
-    font-size: 50px;
-  }
-  
-  .page-heading {
-    font-size: 50px;
-  }
+    .featurette-heading {
+        font-size: 50px;
+    }
+
+    .page-heading {
+        font-size: 50px;
+    }
 
 }
 
 @media (min-width: 992px) {
-  .featurette-heading {
-    margin-top: 120px;
-  }
-  
-  .page-heading {
-    margin-top: 40px;
-  }
+    .featurette-heading {
+        margin-top: 120px;
+    }
+
+    .page-heading {
+        margin-top: 40px;
+    }
 }
