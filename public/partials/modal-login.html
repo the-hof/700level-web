@@ -28,7 +28,7 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox"> Remember me
+                        <input type="checkbox" ng-model="remember" > Remember me
                     </label>
                 </div>
             </div>
@@ -38,10 +38,10 @@
         <div class="row">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary" ng-click="doLogin(username, password)">LOGIN</button>
+                    <button type="button" class="btn btn-primary"
+                            ng-click="doLogin(username, password, remember)">LOGIN</button>
                     <!--
                     <button type="button" class="btn btn-default">Profile Manager</button>
-                    <button type="button" class="btn btn-default">Retrieve Password</button>
                     -->
                 </div>
             </div>

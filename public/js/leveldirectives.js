@@ -5,12 +5,27 @@ angular.module('levelDirectives', ['ui.bootstrap'])
     var logoutUrl = '/logout?callback=JSON_CALLBACK';
     var loginUrl = '/login?callback=JSON_CALLBACK';
 
-    var LoginCtrl = function ($scope, $modalInstance, $http, user, $location, $rootScope) {
+    var LoginCtrl = function ($scope, $modalInstance, $http, user, $location, $rootScope, $remember) {
       $scope.user = user;
       $scope.isLoggedIn = false;
+      $scope.remember = false;
 
-      $scope.doLogin = function (username, password) {
+      if ($remember('username') && $remember('password') ) {
+        $scope.remember = true;
+        $scope.username = $remember('username');
+        $scope.password = $remember('password');
+      }
+
+      $scope.doLogin = function (username, password, remember) {
         // do login here
+
+        if (remember) {
+          $remember('username', username);
+          $remember('password', password);
+        } else {
+          $remember('username', '');
+          $remember('password', '');
+        }
 
         $http({
           url: loginUrl,
