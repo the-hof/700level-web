@@ -59,6 +59,7 @@ describe('Forum', function () {
     var forumService = new ForumService();
     var forum = 'The Barrel';
     var thread = 'thread topic 0';
+    console.log('initializing forumtests.js')
 
     user.deleteUserName('forumtest_user', function (err) {
       if (err) console.log(err);
@@ -72,6 +73,7 @@ describe('Forum', function () {
               if (err) console.log(err);
               user.createNew('forumtest_user2', 'forumtest_userpwd', 'test.email@700level.com', function (err) {
                 if (err) console.log(err);
+                console.log('adding records');
                 addRecords(err, 11, done);
               });
             });
@@ -88,6 +90,7 @@ describe('Forum', function () {
       var forumService = new ForumService();
       var forum = 'The Barrel';
       var thread = 'thread topic 0';
+      console.log('cleaning up forumtests.js');
 
       forumService.deleteThread('forumtest_user', 'forumtest_userpwd', forum, thread, function (err) {
         if (err) throw err;
@@ -127,8 +130,10 @@ describe('Forum', function () {
       var post = 'test post';
       var ip = '127.0.0.1';
 
+      console.log('testing savePost for new post');
       forumService.savePost('forumtest_user', 'forumtest_userpwd', forum, thread, null, post, ip,
         function (err, thread_id) {
+          console.log('new post thread_id = ' + thread_id);
           if (err) throw err;
           forumService.getThreadAuthorByThreadId(thread_id, function (err, thread_author) {
             expect(thread_author).to.equal('forumtest_user');
@@ -145,6 +150,7 @@ describe('Forum', function () {
       var post2 = 'test reply'
       var ip = '127.0.0.1';
 
+      console.log('testing savePost for existing post');
       forumService.savePost('forumtest_user2', 'forumtest_userpwd', forum, thread, null, post1, ip,
         function (err, thread_id) {
           if (err) throw err;

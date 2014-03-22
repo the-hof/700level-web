@@ -12,6 +12,7 @@ describe('/v1/contact', function () {
       message: 'Test message.  It is full of the needful'
     }
 
+    console.log('testing /v1/contact');
     testMessage.from = '';
     request
       .put(testURL)

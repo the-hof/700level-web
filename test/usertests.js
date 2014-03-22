@@ -7,6 +7,7 @@ after(function (done) {
   if (shouldCleanUp) {
     var user = new UserService();
 
+    console.log('cleaning up usertests.js');
     user.deleteUserName('test_username', function (err) {
       if (err) console.log(err);
       done();
