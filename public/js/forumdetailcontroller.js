@@ -23,6 +23,8 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
       $scope.threadList = data;
       $scope.resultCount = data.length;
 
+      console.log(data);
+
       $scope.numPages = Math.ceil($scope.threadCount / $scope.pageSize);
       $scope.pageList = [];
 
