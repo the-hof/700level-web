@@ -1,26 +1,38 @@
+"use strict";
+
 var ForumService = require('../lib/ForumService');
 
-/*
- * GET most recent
- */
+//////////////////////////////////////////////////
+// helper functions
+//////////////////////////////////////////////////
 
-function wrapResponseInCallback(callbackQuerystring, responseText) {
-  return getCallbackOpenFromQueryString(callbackQuerystring)
-    + responseText
-    + getCallbackCloseFromQueryString(callbackQuerystring);
+function stringifyPosts(key, value) {
+    switch(key) {
+        case 'ip_address': return undefined;
+        case '_version_': return undefined;
+        default: return value;
+    }
 }
 
 function getCallbackOpenFromQueryString(url_callback) {
-  var retStr = '';
-  if (url_callback) retStr = url_callback + '(';
-  return retStr;
+    var retStr = '';
+    if (url_callback) retStr = url_callback + '(';
+    return retStr;
 }
 
 function getCallbackCloseFromQueryString(url_callback) {
-  var retStr = '';
-  if (url_callback) retStr = ')';
-  return retStr;
+    var retStr = '';
+    if (url_callback) retStr = ')';
+    return retStr;
 }
+
+function wrapResponseInCallback(callbackQuerystring, responseText) {
+    var resText = getCallbackOpenFromQueryString(callbackQuerystring);
+    resText += responseText + getCallbackCloseFromQueryString(callbackQuerystring);
+
+    return resText;
+}
+
 
 function getIntFromQueryString(url_int, default_value) {
   if (url_int) return parseInt(url_int, 10);
@@ -60,6 +72,10 @@ function getQueryTermFromQueryString(url_queryterm) {
   return '';
 }
 
+//////////////////////////////////////////////////
+// forum.js
+//////////////////////////////////////////////////
+
 exports.search = function(req, res) {
   res.setHeader('Content-Type', 'application/json');
   var forumService = new ForumService();
@@ -68,8 +84,8 @@ exports.search = function(req, res) {
   forumService.search(q, 25, 1, function (err, postList) {
     if (err) throw err;
     res.end(wrapResponseInCallback(req.query.callback, JSON.stringify(postList, stringifyPosts, 2)));
-  })
-}
+  });
+};
 
 exports.listThreadsByForum = function(req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -81,16 +97,8 @@ exports.listThreadsByForum = function(req, res) {
   forumService.listThreadsByForum(forum, startPage, pageSize, function(err, threadList) {
     if (err) throw err;
     res.end(wrapResponseInCallback(req.query.callback, JSON.stringify(threadList, null, 2)));
-  })
+  });
 };
-
-function stringifyPosts(key, value) {
-  switch(key) {
-    case 'ip_address': return undefined; break;
-    case '_version_': return undefined; break;
-    default: return value; break;
-  }
-}
 
 exports.mostRecent = function(req, res){
   res.setHeader('Content-Type', 'application/json');
@@ -99,7 +107,7 @@ exports.mostRecent = function(req, res){
   forumService.listMostRecentPostsByForum(forum, 5, function (err, postList) {
     if (err) throw err;
     res.end(wrapResponseInCallback(req.query.callback, JSON.stringify(postList, stringifyPosts, 2)));
-  })
+  });
 };
 
 exports.listPostsByThread = function(req, res) {
@@ -114,12 +122,12 @@ exports.listPostsByThread = function(req, res) {
     forumService.listPostsByThreadId(forum, threadId, startPage, pageSize, function (err, threadList) {
       if (err) throw err;
       res.end(wrapResponseInCallback(req.query.callback, JSON.stringify(threadList, stringifyPosts, 2)));
-    })
+    });
   } else {
     forumService.listPostsByThread(forum, thread, startPage, pageSize, function (err, threadList) {
       if (err) throw err;
       res.end(wrapResponseInCallback(req.query.callback, JSON.stringify(threadList, stringifyPosts, 2)));
-    })
+    });
   }
 };
 
@@ -144,9 +152,9 @@ exports.addNewPost = function (req, res) {
     forumService.savePost(req.user.username, forum, threadSubject, threadId, postText, '', function (err) {
         if (err) throw err;
         res.send(200);
-    })
+    });
 
   } else {
     res.send(401);
   }
-}
+};

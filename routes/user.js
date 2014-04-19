@@ -1,41 +1,39 @@
+"use strict";
+
 var UserService = require('../lib/UserService');
 
-function wrapResponseInCallback(callbackQuerystring, responseText) {
-  return getCallbackOpenFromQueryString(callbackQuerystring)
-    + responseText
-    + getCallbackCloseFromQueryString(callbackQuerystring);
-}
+//////////////////////////////////////////////////
+// helper functions
+//////////////////////////////////////////////////
 
 function getCallbackOpenFromQueryString(url_callback) {
-  var retStr = '';
-  if (url_callback) retStr = url_callback + '(';
-  return retStr;
+    var retStr = '';
+    if (url_callback) retStr = url_callback + '(';
+    return retStr;
 }
 
 function getCallbackCloseFromQueryString(url_callback) {
-  var retStr = '';
-  if (url_callback) retStr = ')';
-  return retStr;
+    var retStr = '';
+    if (url_callback) retStr = ')';
+    return retStr;
 }
 
-/*
- * GET users listing.
- */
+function wrapResponseInCallback(callbackQuerystring, responseText) {
+    var resText = getCallbackOpenFromQueryString(callbackQuerystring);
+    resText += responseText + getCallbackCloseFromQueryString(callbackQuerystring);
+
+    return resText;
+}
 
 function getSolrUserNameFromPOST(post_username) {
-  if (post_username) return post_username;
-  return '';
+    if (post_username) return post_username;
+    return '';
 }
 
-function getSolrPasswordFromPOST(post_password) {
-  if (post_password) return post_password;
-  return '';
-}
 
-function getSolrEmailFromPOST(post_email) {
-  if (post_email) return post_email;
-  return '';
-}
+//////////////////////////////////////////////////
+// user.js
+//////////////////////////////////////////////////
 
 exports.setFirstAdmin = function (req, res) {
   var username = getSolrUserNameFromPOST(req.param('username'));
@@ -48,14 +46,14 @@ exports.setFirstAdmin = function (req, res) {
         user.setAdmin(SelectedUser.id, function (err) {
           if (err) throw err;
           res.send("OK");
-        })
-      })
+        });
+      });
     } else {
       res.send("admin already exists, not adding new one");
     }
-  })
+  });
   //res.send("not implemented");
-}
+};
 
 exports.createNew = function (req, res) {
   var username = getSolrUserNameFromPOST(req.param('username'));
@@ -77,7 +75,7 @@ exports.createNew = function (req, res) {
 
     res.send(JSON.stringify({status:returnCode})); //not called by jsonp, so don't wrap callback
   }
-}
+};
 
 exports.validate = function (req, res) {
   var username = getSolrUserNameFromPOST(req.param('username'));
@@ -86,13 +84,12 @@ exports.validate = function (req, res) {
   var returnCode = 'THERE WAS AN ERROR';
   user.getByUsernamePassword(username, unhashed_password, function (err, SelectedUser) {
     if (err) {
-      returnCode = err.message
+      returnCode = err.message;
     } else {
       returnCode = SelectedUser.isValid ? 'valid' : 'username and password not found';
     }
-    ;
     res.send(returnCode);
-  })
+  });
 };
 
 exports.login = function(req, res) {

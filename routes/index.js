@@ -1,7 +1,8 @@
+"use strict";
 
-/*
- * GET home page.
- */
+//////////////////////////////////////////////////
+// index.js
+//////////////////////////////////////////////////
 
 exports.index = function(req, res){
   res.render('index', { title: '700Level' });

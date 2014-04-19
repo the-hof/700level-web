@@ -1,5 +1,7 @@
+"use strict";
+
 var nodemailer = require("nodemailer");
-var config = require('./config')
+var config = require('./config');
 
 function getParamFromPOST(post_param) {
   if (post_param) return post_param;
@@ -23,7 +25,6 @@ exports.sendMessage = function (req, res) {
   if (!message) returnMessage += "message not supplied";
 
   if (!returnMessage) {
-    var messageText = '';
     var transport = nodemailer.createTransport("SMTP", {
       service: "Gmail",
       auth: config.contact.auth
@@ -38,7 +39,7 @@ exports.sendMessage = function (req, res) {
       subject: "[700level contact] " + subject, // Subject line
       text: message, // plaintext body
       html: message // html body
-    }
+    };
 
     // send mail with defined transport object
     transport.sendMail(mailOptions, function(error, response){
@@ -62,4 +63,4 @@ exports.sendMessage = function (req, res) {
     res.send(JSON.stringify({status:returnCode, message:returnMessage}));
   }
 
-}
+};
