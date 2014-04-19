@@ -7,7 +7,7 @@ describe('List Most Recent Posts By ThreadId API call', function () {
   it('should return 25 posts', function (done) {
     var testURL = 'localhost:3000/v1/forum/thread?forum=nosebleeds&startPage=2&pageSize=25';
     var threadId = '';
-    var threadName = 'Eagles - Raiders';
+    var threadName = 'DeSean Jackson Released';
     var forumService = new ForumService();
     forumService.listPostsByThread('Nose Bleeds', threadName, 1, 1, function (err, ControlPostList) {
       if (err) throw err;
@@ -49,7 +49,7 @@ describe('List Most Recent Posts By ThreadId API call', function () {
 
 describe('List Most Recent Posts By Thread API call', function () {
   it('should return 25 posts', function (done) {
-    var testURL = 'localhost:3000/v1/forum/thread?forum=nosebleeds&thread=Eagles+-+Raiders&startPage=2&pageSize=25';
+    var testURL = 'localhost:3000/v1/forum/thread?forum=nosebleeds&thread=DeSean+Jackson+Released&startPage=2&pageSize=25';
 
     request
       .get(testURL, function (err, res) {
@@ -85,7 +85,7 @@ describe('List Most Recent Posts By Thread API call', function () {
 
   it('should add a callback when requested', function(done) {
     request
-      .get('localhost:3000/v1/forum/thread?forum=nosebleeds&thread=Eagles+-+Raiders&startPage=2&pageSize=25&callback=TEST_CALLBACK', function (err, res) {
+      .get('localhost:3000/v1/forum/thread?forum=nosebleeds&thread=DeSean+Jackson+Released&startPage=2&pageSize=25&callback=TEST_CALLBACK', function (err, res) {
         expect(res).to.exist;
         expect(res.status).to.equal(200);
         expect(res.text).to.contain('TEST_CALLBACK');

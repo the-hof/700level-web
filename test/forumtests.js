@@ -375,7 +375,7 @@ describe('Forum', function () {
     it('should return a list of posts', function(done) {
       var forumService = new ForumService();
       var forum = 'The Barrel';
-      forumService.search('rocky vi', 25, 1, function (err, PostList) {
+      forumService.search('desean jackson', 25, 1, function (err, PostList) {
         if (err) throw err;
         expect(PostList.length).to.equal(25);
 
