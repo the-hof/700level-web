@@ -141,9 +141,9 @@ exports.addNewPost = function (req, res) {
     if (threadSubject.length > 120) {
       threadSubject = threadSubject.substring(0,120);
     }
-    forumService.savePost(req.user.username, '', forum, threadSubject, threadId, postText, '', function(err) {
-      if (err) throw err;
-      res.send(200);
+    forumService.savePost(req.user.username, forum, threadSubject, threadId, postText, '', function (err) {
+        if (err) throw err;
+        res.send(200);
     })
 
   } else {

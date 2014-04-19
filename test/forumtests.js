@@ -44,9 +44,9 @@ describe('Forum', function () {
           post = 'text sample 5';
           break;
       }
-      forumService.savePost('forumtest_user', 'forumtest_userpwd', forum, thread, null, post, ip, function (err) {
-        if (err) console.log(err);
-        addRecords(err, recordsToAdd - 1, callback);
+      forumService.savePost('forumtest_user', forum, thread, null, post, ip, function (err) {
+          if (err) console.log(err);
+          addRecords(err, recordsToAdd - 1, callback);
       });
     }
     else {
@@ -131,15 +131,14 @@ describe('Forum', function () {
       var ip = '127.0.0.1';
 
       console.log('testing savePost for new post');
-      forumService.savePost('forumtest_user', 'forumtest_userpwd', forum, thread, null, post, ip,
-        function (err, thread_id) {
-          console.log('new post thread_id = ' + thread_id);
-          if (err) throw err;
-          forumService.getThreadAuthorByThreadId(thread_id, function (err, thread_author) {
+      forumService.savePost('forumtest_user', forum, thread, null, post, ip, function (err, thread_id) {
+        console.log('new post thread_id = ' + thread_id);
+        if (err) throw err;
+        forumService.getThreadAuthorByThreadId(thread_id, function (err, thread_author) {
             expect(thread_author).to.equal('forumtest_user');
-          })
-          done();
-        });
+        })
+        done();
+      });
     });
 
     it('should keep the original poster as the thread_author when another users replies', function (done) {
@@ -151,18 +150,16 @@ describe('Forum', function () {
       var ip = '127.0.0.1';
 
       console.log('testing savePost for existing post');
-      forumService.savePost('forumtest_user2', 'forumtest_userpwd', forum, thread, null, post1, ip,
-        function (err, thread_id) {
-          if (err) throw err;
-          forumService.savePost('forumtest_user', 'forumtest_userpwd', forum, thread, thread_id, post2, ip,
-            function (err, thread_id) {
-              if (err) throw err;
-              forumService.getThreadAuthorByThreadId(thread_id, function (err, thread_author) {
+      forumService.savePost('forumtest_user2', forum, thread, null, post1, ip, function (err, thread_id) {
+        if (err) throw err;
+        forumService.savePost('forumtest_user', forum, thread, thread_id, post2, ip, function (err, thread_id) {
+            if (err) throw err;
+            forumService.getThreadAuthorByThreadId(thread_id, function (err, thread_author) {
                 expect(thread_author).to.equal('forumtest_user2');
                 done();
-              })
-            });
+            })
         });
+      });
     })
 
     it('should not allow saves by invalid username & password combos', function (done) {
@@ -172,9 +169,9 @@ describe('Forum', function () {
       var post = 'should never see this';
       var ip = '127.0.0.1';
 
-      forumService.savePost(uuid.v4(), uuid.v4(), forum, thread, null, post, ip, function (err, thread_id) {
-        if (err && (err != 'username and password not authorized to post')) throw err;
-        done();
+      forumService.savePost(uuid.v4(), forum, thread, null, post, ip, function (err, thread_id) {
+          if (err && (err != 'username and password not authorized to post')) throw err;
+          done();
       })
     });
   })
