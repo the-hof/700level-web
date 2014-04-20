@@ -119,7 +119,7 @@ describe('Forum', function () {
         })
       })
     }
-  })
+  });
 
 
   describe('#savePost', function () {
