@@ -73,6 +73,7 @@ app.post('/v1/user/', user.createNew);
 app.get('/v1/user/', user.createNew);
 app.get('/v1/user/validate', user.validate);
 app.get('/v1/user/set_first_admin', user.setFirstAdmin);
+app.get('/v1/user/password_reset', user.resetPassword)
 
 //Forum API routes
 app.get('/v1/forum/search', forum.search);

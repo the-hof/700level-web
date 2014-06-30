@@ -58,9 +58,7 @@ levelControllers.controller('forumDetailCtrl', ['$scope', '$routeParams', '$http
           }
         }
       }
-    })
-
-
+    });
 
     $scope.search = function () {
       var searchTerm = $scope.searchTerm;
