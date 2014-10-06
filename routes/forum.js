@@ -155,6 +155,9 @@ exports.addNewPost = function (req, res) {
     var forum = getSolrForumFromQueryString(req.query.forum);
     var threadId = getSolrThreadIdFromQueryString(req.query.threadId);
     var inputURL = req.body.inputURL;
+    var ip_address = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+    console.log('ip = ' + ip_address);
 
     var postText = req.body.post;
 
@@ -171,7 +174,7 @@ exports.addNewPost = function (req, res) {
         if (threadSubject.length > 120) {
             threadSubject = threadSubject.substring(0, 120);
         }
-        forumService.savePost(req.user.username, forum, threadSubject, threadId, postText, '', function (err) {
+        forumService.savePost(req.user.username, forum, threadSubject, threadId, postText, ip_address, function (err) {
             if (err) throw err;
             res.send(200);
         });
