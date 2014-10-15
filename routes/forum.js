@@ -157,8 +157,6 @@ exports.addNewPost = function (req, res) {
     var inputURL = req.body.inputURL;
     var ip_address = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
-    console.log('ip = ' + ip_address);
-
     var postText = req.body.post;
 
     if (!postText) {

@@ -6,6 +6,8 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
+var config = require('./routes/config.js');
+
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy
   , UserService = require('./lib/UserService');
